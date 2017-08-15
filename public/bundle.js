@@ -22190,7 +22190,7 @@
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -22213,118 +22213,295 @@
 	var App = function (_React$Component) {
 		_inherits(App, _React$Component);
 
-		function App() {
+		function App(props) {
 			_classCallCheck(this, App);
 
-			return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+			_this.state = { scroll: 0, mess: 'none', messIcon: 'none' };
+			_this.handleScroll = _this.handleScroll.bind(_this);
+			return _this;
 		}
 
 		_createClass(App, [{
-			key: "navbarScroll",
-			value: function navbarScroll() {}
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				window.addEventListener('scroll', this.handleScroll);
+			}
 		}, {
-			key: "render",
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				window.removeEventListener('scroll', this.handleScroll);
+			}
+		}, {
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
+					'div',
 					null,
 					_react2.default.createElement(
-						"div",
-						{ className: "nav-bar col-12" },
+						'div',
+						{ className: 'nav-bar col-12' },
 						_react2.default.createElement(
-							"ul",
+							'ul',
 							null,
 							_react2.default.createElement(
-								"li",
+								'li',
 								null,
 								_react2.default.createElement(
-									"a",
-									{ className: "active" },
-									"Sign Up"
+									'a',
+									{ className: 'active' },
+									'Sign Up'
 								)
 							),
 							_react2.default.createElement(
-								"li",
+								'li',
 								null,
 								_react2.default.createElement(
-									"a",
-									{ href: "#" },
-									"Feature"
+									'a',
+									{ href: '#' },
+									'Feature'
 								)
 							),
 							_react2.default.createElement(
-								"li",
+								'li',
 								null,
 								_react2.default.createElement(
-									"a",
-									{ className: "mess", href: "#" },
-									"CutTheWind"
+									'a',
+									{ className: 'mess', style: { display: this.state.mess }, href: '#' },
+									'"Cut Air"'
 								)
 							),
 							_react2.default.createElement(
-								"li",
+								'li',
 								null,
-								_react2.default.createElement("a", { className: "mess-icon", href: "#" })
+								_react2.default.createElement('a', { className: 'mess-icon', style: { display: this.state.messIcon }, href: '#' })
 							)
 						)
 					),
 					_react2.default.createElement(
-						"div",
-						{ className: "page-1 col-12" },
+						'div',
+						{ className: 'page-1 col-12' },
 						_react2.default.createElement(
-							"div",
-							{ className: "login-field col-5" },
-							_react2.default.createElement("div", { className: "icon2x" }),
+							'div',
+							{ className: 'login-field col-5' },
+							_react2.default.createElement('div', { className: 'icon2x' }),
 							_react2.default.createElement(
-								"h1",
+								'h1',
 								null,
-								"Cut the wind"
+								'"Cut Air"'
 							),
 							_react2.default.createElement(
-								"p",
+								'p',
 								null,
-								"\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u ch\xE9m gi\xF3."
+								'\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u ch\xE9m gi\xF3.'
 							),
 							_react2.default.createElement(
-								"form",
-								null,
-								_react2.default.createElement("input", { type: "email", name: "email", placeholder: "Email ho\u1EB7c s\u1ED1 \u0111i\u1EC7n tho\u1EA1i" }),
-								_react2.default.createElement("input", { type: "password", name: "passwork", placeholder: "Passwork" }),
+								'form',
+								{ onSubmit: this.handleSubmit },
+								_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
+								_react2.default.createElement('input', { type: 'password', name: 'passwork', placeholder: 'Passwork', required: true }),
 								_react2.default.createElement(
-									"button",
-									{ type: "submit" },
-									"\u0110\u0103ng nh\u1EADp"
+									'button',
+									{ type: 'submit' },
+									'\u0110\u0103ng nh\u1EADp'
 								),
 								_react2.default.createElement(
-									"div",
-									{ className: "remember-me" },
-									_react2.default.createElement("input", { type: "checkbox", id: "remember-me" }),
+									'div',
+									{ className: 'remember-me' },
+									_react2.default.createElement('input', { type: 'checkbox', id: 'remember-me' }),
 									_react2.default.createElement(
-										"label",
-										{ "for": "remember-me" },
-										"Duy tr\xEC \u0111\u0103ng nh\u1EADp"
+										'label',
+										null,
+										'Duy tr\xEC \u0111\u0103ng nh\u1EADp'
 									)
 								),
 								_react2.default.createElement(
-									"div",
-									{ className: "download" },
-									"T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn",
+									'div',
+									{ className: 'download' },
+									'T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn',
 									_react2.default.createElement(
-										"a",
-										{ href: "#" },
-										"iOS,"
+										'a',
+										{ href: '#' },
+										'iOS,'
 									),
 									_react2.default.createElement(
-										"a",
-										{ href: "#" },
-										"Android"
+										'a',
+										{ href: '#' },
+										'Android'
 									)
 								)
 							)
 						),
-						_react2.default.createElement("div", { className: "devices-img col-7" })
+						_react2.default.createElement('div', { className: 'devices-img col-7' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'page-2 col-12' },
+						_react2.default.createElement('div', { className: 'page-2-img col-3' }),
+						_react2.default.createElement(
+							'div',
+							{ className: 'page-2-txt col-3' },
+							_react2.default.createElement(
+								'h1',
+								null,
+								'Introducing video calling in "Cut Air".'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Now you can have face-to-face conversations with friends and family. It\u2019s fast and easy to make video calls anywhere in the world.'
+							),
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn_learnMore', href: '#' },
+								'LERN MORE'
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'page-3 col-12' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							'Texting and so much more.'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'Check out all you can do in Messenger.'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'page-3-content col-8' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'Aa' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Know when people have seen your texts.'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'phone_icon' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Make HD calls anywhere in the world.'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'camera_icon' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Snap photos and shoot videos.'
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'page-3-content col-8' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'smile' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Choose from thousands of stickers.'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'record' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Record voice messages.'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'content-child col-2' },
+								_react2.default.createElement(
+									'a',
+									{ href: '', target: '_blank' },
+									_react2.default.createElement('div', { id: 'three_somes' }),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Chat with your favorite groups.'
+									)
+								)
+							)
+						),
+						_react2.default.createElement(
+							'a',
+							{ id: 'explore', href: '#' },
+							'EXPLORE'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'footer col-12' },
+						_react2.default.createElement(
+							'p',
+							null,
+							'The Facebook, Apple, Google Play, and Windows logos are trademarks of their respective owners. View our Data Policy and Terms.'
+						)
 					)
 				);
+			}
+		}, {
+			key: 'handleScroll',
+			value: function handleScroll() {
+				var supportPageOffset = window.pageXOffset !== undefined;
+				var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
+				var scroll = {
+					x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
+					y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+				};
+				this.setState({ scroll: scroll });
+				if (this.state.scroll.y > 0) {
+					this.setState({ mess: 'block', messIcon: 'block' });
+				} else if (this.state.scroll.y == 0) {
+					this.setState({ mess: 'none', messIcon: 'none' });
+				}
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(event) {
+				alert('An essay was submitted: ');
+				event.preventDefault();
 			}
 		}]);
 
