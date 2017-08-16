@@ -1,11 +1,14 @@
 import React from 'react';
+import Signup from '../components/signup.jsx';
+import Login from '../components/Login.jsx';
+
 
 class App extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {scroll: 0, mess: 'none', messIcon: 'none'};
 	    this.handleScroll = this.handleScroll.bind(this);
-   }
+	}
 	componentDidMount() {
 		window.addEventListener('scroll', this.handleScroll);
 	}
@@ -15,6 +18,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
+				<Signup></Signup>
 			    <div className="nav-bar col-12">
 					<ul>
 						<li><a className="active">Sign Up</a></li>
@@ -24,24 +28,7 @@ class App extends React.Component {
 					</ul>		
 				</div>
 				<div className='page-1 col-12'>
-					<div className='login-field col-5'>
-					<div className='icon2x'></div>
-					<h1>"Cut Air"</h1>
-					<p>Đăng nhập để bắt đầu chém gió.</p>
-					<form onSubmit={this.handleSubmit}>
-						<input type='email' name='email' placeholder='Email' required/>
-						<input type='password' name='passwork' placeholder='Passwork' required/>
-						<button type='submit'>Đăng nhập</button>
-						<div className='remember-me'>
-						    <input type="checkbox" id="remember-me" />
-						    <label>Duy trì đăng nhập</label>
-					  	</div>
-					  	<div className='download'>Tải ứng dụng trên  
-					  		<a href='#'>iOS,</a>
-					  		<a href='#'>Android</a>
-					  	</div>
-					</form>
-					</div>
+					<Login></Login>
 					<div className='devices-img col-7'></div>
 				</div>
 				<div className='page-2 col-12'>
@@ -116,10 +103,6 @@ class App extends React.Component {
 		}else if(this.state.scroll.y == 0){
 			this.setState({mess: 'none',messIcon: 'none'});
 		}
-	}
-	handleSubmit(event) {
-		alert('An essay was submitted: ');
-		event.preventDefault();
 	}
 }
 

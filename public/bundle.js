@@ -54,13 +54,13 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _App = __webpack_require__(184);
+	var _app = __webpack_require__(186);
 
-	var _App2 = _interopRequireDefault(_App);
+	var _app2 = _interopRequireDefault(_app);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -22187,7 +22187,8 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 184 */
+/* 184 */,
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22201,6 +22202,98 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Signup = function (_React$Component) {
+		_inherits(Signup, _React$Component);
+
+		function Signup(props) {
+			_classCallCheck(this, Signup);
+
+			var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			_this.state = { style: 'block' };
+			return _this;
+		}
+
+		_createClass(Signup, [{
+			key: 'handleSubmit',
+			value: function handleSubmit() {
+				alert('success');
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'sign-up col-12', style: { display: this.state.style } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'signup-popup col-4' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'signup-label' },
+							_react2.default.createElement(
+								'label',
+								null,
+								'Sign Up'
+							)
+						),
+						_react2.default.createElement(
+							'form',
+							{ onSubmit: this.handleSubmit },
+							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', required: true }),
+							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 're-password', placeholder: 'Re-Password', required: true }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'btn_form' },
+								_react2.default.createElement('input', { type: 'submit', className: 'signup-submit', value: 'Sign Up' }),
+								_react2.default.createElement('input', { type: 'button', className: 'signup-cancel', value: 'Cancel' })
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Signup;
+	}(_react2.default.Component);
+
+	exports.default = Signup;
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _signup = __webpack_require__(185);
+
+	var _signup2 = _interopRequireDefault(_signup);
+
+	var _Login = __webpack_require__(187);
+
+	var _Login2 = _interopRequireDefault(_Login);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22239,6 +22332,7 @@
 				return _react2.default.createElement(
 					'div',
 					null,
+					_react2.default.createElement(_signup2.default, null),
 					_react2.default.createElement(
 						'div',
 						{ className: 'nav-bar col-12' },
@@ -22282,57 +22376,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'page-1 col-12' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'login-field col-5' },
-							_react2.default.createElement('div', { className: 'icon2x' }),
-							_react2.default.createElement(
-								'h1',
-								null,
-								'"Cut Air"'
-							),
-							_react2.default.createElement(
-								'p',
-								null,
-								'\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u ch\xE9m gi\xF3.'
-							),
-							_react2.default.createElement(
-								'form',
-								{ onSubmit: this.handleSubmit },
-								_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
-								_react2.default.createElement('input', { type: 'password', name: 'passwork', placeholder: 'Passwork', required: true }),
-								_react2.default.createElement(
-									'button',
-									{ type: 'submit' },
-									'\u0110\u0103ng nh\u1EADp'
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'remember-me' },
-									_react2.default.createElement('input', { type: 'checkbox', id: 'remember-me' }),
-									_react2.default.createElement(
-										'label',
-										null,
-										'Duy tr\xEC \u0111\u0103ng nh\u1EADp'
-									)
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'download' },
-									'T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn',
-									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'iOS,'
-									),
-									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'Android'
-									)
-								)
-							)
-						),
+						_react2.default.createElement(_Login2.default, null),
 						_react2.default.createElement('div', { className: 'devices-img col-7' })
 					),
 					_react2.default.createElement(
@@ -22497,6 +22541,101 @@
 					this.setState({ mess: 'none', messIcon: 'none' });
 				}
 			}
+		}]);
+
+		return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Login = function (_React$Component) {
+		_inherits(Login, _React$Component);
+
+		function Login(props) {
+			_classCallCheck(this, Login);
+
+			return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+		}
+
+		_createClass(Login, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'login-field col-5' },
+					_react2.default.createElement('div', { className: 'icon2x' }),
+					_react2.default.createElement(
+						'h1',
+						null,
+						'"Cut Air"'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u ch\xE9m gi\xF3.'
+					),
+					_react2.default.createElement(
+						'form',
+						{ onSubmit: this.handleSubmit },
+						_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
+						_react2.default.createElement('input', { type: 'password', name: 'passwork', placeholder: 'Passwork', required: true }),
+						_react2.default.createElement(
+							'button',
+							{ type: 'submit' },
+							'\u0110\u0103ng nh\u1EADp'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'remember-me' },
+							_react2.default.createElement('input', { type: 'checkbox', id: 'remember-me' }),
+							_react2.default.createElement(
+								'label',
+								null,
+								'Duy tr\xEC \u0111\u0103ng nh\u1EADp'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'download' },
+							'T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn',
+							_react2.default.createElement(
+								'a',
+								{ href: '#' },
+								'iOS,'
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: '#' },
+								'Android'
+							)
+						)
+					)
+				);
+			}
 		}, {
 			key: 'handleSubmit',
 			value: function handleSubmit(event) {
@@ -22505,10 +22644,10 @@
 			}
 		}]);
 
-		return App;
+		return Login;
 	}(_react2.default.Component);
 
-	exports.default = App;
+	exports.default = Login;
 
 /***/ })
 /******/ ]);
