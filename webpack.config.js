@@ -11,7 +11,7 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         },
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/
       }
     ]

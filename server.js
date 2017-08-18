@@ -8,7 +8,7 @@ app.set("views", "./views");
 
 var server = require("http").Server(app);
 server.listen(9090);
-console.log('Server is running bitch!!!');
+console.log('Server is running!!!');
 
 app.get("/", function(req, res){
 	res.render("trangchu");
