@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { signUpClick } from './actions/action_signUp.js'
 
 import Signup from './components/signup.jsx';
-import Login from './components/Login.jsx';
+import Login from './components/login.jsx';
 
 
 class App extends React.Component {
