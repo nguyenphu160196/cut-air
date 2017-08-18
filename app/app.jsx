@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { addSignUp } from '../actions/actions'
+import { signUpClick } from './actions/action_signUp.js'
 
-import Signup from '../components/signup.jsx';
-import Login from '../components/Login.jsx';
+import Signup from './components/signup.jsx';
+import Login from './components/Login.jsx';
 
 
 class App extends React.Component {

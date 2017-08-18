@@ -62,13 +62,16 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _reducers = __webpack_require__(228);
+	var _reducer_signUp = __webpack_require__(228);
 
-	var _reducers2 = _interopRequireDefault(_reducers);
+	var _reducer_signUp2 = _interopRequireDefault(_reducer_signUp);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var store = (0, _redux.createStore)(_reducers2.default);
+	var combine = (0, _redux.combineReducers)({
+		signUpReducer: _reducer_signUp2.default
+	});
+	var store = (0, _redux.createStore)(combine);
 
 	_reactDom2.default.render(_react2.default.createElement(
 		_reactRedux.Provider,
@@ -24625,7 +24628,7 @@
 
 	var _reactRedux = __webpack_require__(205);
 
-	var _actions = __webpack_require__(225);
+	var _action_signUp = __webpack_require__(225);
 
 	var _signup = __webpack_require__(226);
 
@@ -24902,14 +24905,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	   value: true
 	});
-	exports.addSignUp = addSignUp;
-	var signUp_click = exports.signUp_click = 'signUp_click';
+	var signUp_click = exports.signUp_click = 'SIGNUP_CLICK';
 
-	function addSignUp() {
+	var signUpClick = exports.signUpClick = function signUpClick() {
 	   return {
 	      type: signUp_click
 	   };
-	}
+	};
 
 /***/ }),
 /* 226 */
@@ -25106,32 +25108,26 @@
 	   value: true
 	});
 
-	var _redux = __webpack_require__(184);
+	var _action_signUp = __webpack_require__(225);
 
-	var _actions = __webpack_require__(225);
-
-	function todo() {
+	function signUpReducer() {
 	   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { value: 'none' };
 	   var action = arguments[1];
 
 	   switch (action.type) {
 
-	      case _actions.signUp_click:
+	      case _action_signUp.signUp_click:
 
 	         return {
 	            value: 'block'
 	         };
 
 	      default:
-	         return { value: 'none' };
+	         return state;
 	   }
 	}
 
-	var todoApp = (0, _redux.combineReducers)({
-	   todo: todo
-	});
-
-	exports.default = todoApp;
+	exports.default = signUpReducer;
 
 /***/ })
 /******/ ]);
