@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { addSignUp } from '../actions/actions'
+
 import Signup from '../components/signup.jsx';
 import Login from '../components/Login.jsx';
 
@@ -10,6 +13,7 @@ class App extends React.Component {
 	    this.handleScroll = this.handleScroll.bind(this);
 	}
 	componentDidMount() {
+		this.setState({mess: this.props.myValue, messIcon: this.props.myValue})
 		window.addEventListener('scroll', this.handleScroll);
 	}
 	componentWillUnmount() {
@@ -106,4 +110,8 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+function mapStatetoProp(state){
+	return {myValue: state.value}
+}
+
+export default connect(mapStatetoProp)(App);

@@ -4,10 +4,10 @@ class Signup extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.handleSubmit = this.handleSubmit.bind(this);
-	    this.state={style: 'block'}
+	    this.state={style: 'none'}
 	}
 	handleSubmit(){
-		alert('success');
+		this.props.dispatch({type: 'signUp_click'})
 	}
 	render() {
 		return (
