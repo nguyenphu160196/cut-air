@@ -15,7 +15,11 @@ class Signup extends React.Component{
 	}
 	render() {
 		return (
+<<<<<<< HEAD
 			<div className='sign-up col-12' style={{display: this.props.display}}>
+=======
+			<div className='sign-up col-12' style={{display: this.state.style}}>
+>>>>>>> 10b4dcc545c7e4e500568d37441cd77b2559229c
 				<div className='signup-popup col-4'>
 					<div className='signup-label'>
 						<label>Sign Up</label>
@@ -27,7 +31,11 @@ class Signup extends React.Component{
 						<input type='password' name='re-password' placeholder='Re-Password' required/>
 						<div className='btn_form'>
 							<input type='submit' className='signup-submit' value='Sign Up'/>
+<<<<<<< HEAD
 							<input type='button' onClick={this.props.onCancel} className='signup-cancel' value='Cancel'/>
+=======
+							<input type='button' className='signup-cancel' value='Cancel'/>
+>>>>>>> 10b4dcc545c7e4e500568d37441cd77b2559229c
 						</div>
 					</form>
 				</div>

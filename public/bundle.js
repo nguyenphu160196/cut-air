@@ -24631,13 +24631,13 @@
 
 	var _action_signUp = __webpack_require__(225);
 
-	var _signup = __webpack_require__(226);
+	var _signup = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/signup.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _signup2 = _interopRequireDefault(_signup);
 
-	var _Login = __webpack_require__(227);
+	var _login = __webpack_require__(230);
 
-	var _Login2 = _interopRequireDefault(_Login);
+	var _login2 = _interopRequireDefault(_login);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24726,7 +24726,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'page-1 col-12' },
-						_react2.default.createElement(_Login2.default, null),
+						_react2.default.createElement(_login2.default, null),
 						_react2.default.createElement('div', { className: 'devices-img col-7' })
 					),
 					_react2.default.createElement(
@@ -24927,97 +24927,46 @@
 	};
 
 /***/ }),
-/* 226 */
+/* 226 */,
+/* 227 */,
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(205);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _action_signUp = __webpack_require__(225);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var signUpReducer = function signUpReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { value: 'none' };
+	    var action = arguments[1];
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	    switch (action.type) {
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	        case _action_signUp.signUp_click:
+	            return _extends({}, state, {
+	                value: 'block'
+	            });
+	        case _action_signUp.signUp_cancel:
+	            return _extends({}, state, {
+	                value: 'none'
+	            });
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	        default:
+	            return state;
+	    }
+	};
 
-	var Signup = function (_React$Component) {
-		_inherits(Signup, _React$Component);
-
-		function Signup(props) {
-			_classCallCheck(this, Signup);
-
-			var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
-
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			return _this;
-		}
-
-		_createClass(Signup, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {}
-		}, {
-			key: 'handleSubmit',
-			value: function handleSubmit(event) {
-				event.preventDefault();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'sign-up col-12', style: { display: this.props.display } },
-					_react2.default.createElement(
-						'div',
-						{ className: 'signup-popup col-4' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'signup-label' },
-							_react2.default.createElement(
-								'label',
-								null,
-								'Sign Up'
-							)
-						),
-						_react2.default.createElement(
-							'form',
-							{ onSubmit: this.handleSubmit },
-							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', required: true }),
-							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
-							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password', required: true }),
-							_react2.default.createElement('input', { type: 'password', name: 're-password', placeholder: 'Re-Password', required: true }),
-							_react2.default.createElement(
-								'div',
-								{ className: 'btn_form' },
-								_react2.default.createElement('input', { type: 'submit', className: 'signup-submit', value: 'Sign Up' }),
-								_react2.default.createElement('input', { type: 'button', onClick: this.props.onCancel, className: 'signup-cancel', value: 'Cancel' })
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return Signup;
-	}(_react2.default.Component);
-
-	exports.default = Signup;
+	exports.default = signUpReducer;
 
 /***/ }),
-/* 227 */
+/* 229 */,
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25116,42 +25065,6 @@
 	}(_react2.default.Component);
 
 	exports.default = Login;
-
-/***/ }),
-/* 228 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _action_signUp = __webpack_require__(225);
-
-	var signUpReducer = function signUpReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { value: 'none' };
-	    var action = arguments[1];
-
-	    switch (action.type) {
-
-	        case _action_signUp.signUp_click:
-	            return _extends({}, state, {
-	                value: 'block'
-	            });
-	        case _action_signUp.signUp_cancel:
-	            return _extends({}, state, {
-	                value: 'none'
-	            });
-
-	        default:
-	            return state;
-	    }
-	};
-
-	exports.default = signUpReducer;
 
 /***/ })
 /******/ ]);
