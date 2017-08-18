@@ -24631,7 +24631,7 @@
 
 	var _action_signUp = __webpack_require__(225);
 
-	var _signup = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/signup.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _signup = __webpack_require__(226);
 
 	var _signup2 = _interopRequireDefault(_signup);
 
@@ -24927,7 +24927,96 @@
 	};
 
 /***/ }),
-/* 226 */,
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(205);
+
+	var _action_signUp = __webpack_require__(225);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Signup = function (_React$Component) {
+		_inherits(Signup, _React$Component);
+
+		function Signup(props) {
+			_classCallCheck(this, Signup);
+
+			var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			return _this;
+		}
+
+		_createClass(Signup, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(event) {
+				event.preventDefault();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'sign-up col-12', style: { display: this.props.display } },
+					_react2.default.createElement(
+						'div',
+						{ className: 'signup-popup col-4' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'signup-label' },
+							_react2.default.createElement(
+								'label',
+								null,
+								'Sign Up'
+							)
+						),
+						_react2.default.createElement(
+							'form',
+							{ onSubmit: this.handleSubmit },
+							_react2.default.createElement('input', { type: 'text', name: 'username', placeholder: 'Username', required: true }),
+							_react2.default.createElement('input', { type: 'email', name: 'email', placeholder: 'Email', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 'password', placeholder: 'Password', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 're-password', placeholder: 'Re-Password', required: true }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'btn_form' },
+								_react2.default.createElement('input', { type: 'submit', className: 'signup-submit', value: 'Sign Up' }),
+								_react2.default.createElement('input', { type: 'button', onClick: this.props.onCancel, className: 'signup-cancel', value: 'Cancel' })
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Signup;
+	}(_react2.default.Component);
+
+	exports.default = Signup;
+
+/***/ }),
 /* 227 */,
 /* 228 */
 /***/ (function(module, exports, __webpack_require__) {
