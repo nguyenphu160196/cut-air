@@ -11,6 +11,7 @@ const combine = combineReducers({
 	signUpReducer
 })
 let store = createStore(combine)
+console.log(store.getState())
 
 ReactDOM.render(
 	<Provider store = {store}>

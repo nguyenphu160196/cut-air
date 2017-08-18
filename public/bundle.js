@@ -72,6 +72,7 @@
 		signUpReducer: _reducer_signUp2.default
 	});
 	var store = (0, _redux.createStore)(combine);
+	console.log(store.getState());
 
 	_reactDom2.default.render(_react2.default.createElement(
 		_reactRedux.Provider,
@@ -24662,7 +24663,6 @@
 		_createClass(App, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.setState({ mess: this.props.myValue, messIcon: this.props.myValue });
 				window.addEventListener('scroll', this.handleScroll);
 			}
 		}, {
@@ -24673,10 +24673,14 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_signup2.default, null),
+					_react2.default.createElement(_signup2.default, { display: this.props.myValue, onCancel: function onCancel() {
+							_this2.props.dispatch({ type: 'SIGNUP_CANCEL' });
+						} }),
 					_react2.default.createElement(
 						'div',
 						{ className: 'nav-bar col-12' },
@@ -24688,7 +24692,9 @@
 								null,
 								_react2.default.createElement(
 									'a',
-									{ className: 'active' },
+									{ className: 'active', onClick: function onClick() {
+											_this2.props.dispatch({ type: 'SIGNUP_CLICK' });
+										} },
 									'Sign Up'
 								)
 							),
@@ -24890,9 +24896,9 @@
 		return App;
 	}(_react2.default.Component);
 
-	function mapStatetoProp(state) {
-		return { myValue: state.value };
-	}
+	var mapStatetoProp = function mapStatetoProp(state) {
+		return { myValue: state.signUpReducer.value };
+	};
 
 	exports.default = (0, _reactRedux.connect)(mapStatetoProp)(App);
 
@@ -24906,10 +24912,17 @@
 	   value: true
 	});
 	var signUp_click = exports.signUp_click = 'SIGNUP_CLICK';
+	var signUp_cancel = exports.signUp_cancel = 'SIGNUP_CANCEL';
 
 	var signUpClick = exports.signUpClick = function signUpClick() {
 	   return {
 	      type: signUp_click
+	   };
+	};
+
+	var signUpCancel = exports.signUpCancel = function signUpCancel() {
+	   return {
+	      type: signUp_cancel
 	   };
 	};
 
@@ -24929,6 +24942,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(205);
+
+	var _action_signUp = __webpack_require__(225);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24946,21 +24963,23 @@
 			var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
 
 			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			_this.state = { style: 'none' };
 			return _this;
 		}
 
 		_createClass(Signup, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {}
+		}, {
 			key: 'handleSubmit',
-			value: function handleSubmit() {
-				this.props.dispatch({ type: 'signUp_click' });
+			value: function handleSubmit(event) {
+				event.preventDefault();
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'sign-up col-12', style: { display: this.state.style } },
+					{ className: 'sign-up col-12', style: { display: this.props.display } },
 					_react2.default.createElement(
 						'div',
 						{ className: 'signup-popup col-4' },
@@ -24984,7 +25003,7 @@
 								'div',
 								{ className: 'btn_form' },
 								_react2.default.createElement('input', { type: 'submit', className: 'signup-submit', value: 'Sign Up' }),
-								_react2.default.createElement('input', { type: 'button', className: 'signup-cancel', value: 'Cancel' })
+								_react2.default.createElement('input', { type: 'button', onClick: this.props.onCancel, className: 'signup-cancel', value: 'Cancel' })
 							)
 						)
 					)
@@ -25105,27 +25124,32 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+	    value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _action_signUp = __webpack_require__(225);
 
-	function signUpReducer() {
-	   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { value: 'none' };
-	   var action = arguments[1];
+	var signUpReducer = function signUpReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { value: 'none' };
+	    var action = arguments[1];
 
-	   switch (action.type) {
+	    switch (action.type) {
 
-	      case _action_signUp.signUp_click:
+	        case _action_signUp.signUp_click:
+	            return _extends({}, state, {
+	                value: 'block'
+	            });
+	        case _action_signUp.signUp_cancel:
+	            return _extends({}, state, {
+	                value: 'none'
+	            });
 
-	         return {
-	            value: 'block'
-	         };
-
-	      default:
-	         return state;
-	   }
-	}
+	        default:
+	            return state;
+	    }
+	};
 
 	exports.default = signUpReducer;
 

@@ -5,15 +5,13 @@ import { signUpClick } from './actions/action_signUp.js'
 import Signup from './components/signup.jsx';
 import Login from './components/Login.jsx';
 
-
 class App extends React.Component {
 	constructor(props) {
-	    super(props);
-	    this.state = {scroll: 0, mess: 'none', messIcon: 'none'};
-	    this.handleScroll = this.handleScroll.bind(this);
+		super(props);
+		this.state={scroll:0,mess:'none',messIcon:'none'}
+		this.handleScroll = this.handleScroll.bind(this);		
 	}
 	componentDidMount() {
-		this.setState({mess: this.props.myValue, messIcon: this.props.myValue})
 		window.addEventListener('scroll', this.handleScroll);
 	}
 	componentWillUnmount() {
@@ -22,10 +20,15 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Signup></Signup>
-			    <div className="nav-bar col-12">
+				<Signup display={this.props.myValue} onCancel={()=>{
+						this.props.dispatch({type: 'SIGNUP_CANCEL'});
+					}
+				}></Signup>
+				<div className="nav-bar col-12">
 					<ul>
-						<li><a className="active">Sign Up</a></li>
+						<li><a className="active" onClick={()=>{
+							this.props.dispatch({type: 'SIGNUP_CLICK'});
+							}}>Sign Up</a></li>
 						<li><a href="#">Feature</a></li>
 						<li><a className='mess' style={{display:this.state.mess}} href="#">"Cut Air"</a></li>
 						<li><a className='mess-icon' style={{display:this.state.messIcon}} href="#"></a></li>
@@ -110,8 +113,8 @@ class App extends React.Component {
 	}
 }
 
-function mapStatetoProp(state){
-	return {myValue: state.value}
+const mapStatetoProp = (state)=>{
+	return {myValue: state.signUpReducer.value}
 }
 
 export default connect(mapStatetoProp)(App);

@@ -31,6 +31,7 @@
 	margin-bottom: 12px;
 }
 .signup-popup input[type='submit']{
+	cursor: pointer;
 	width: 240px;
 	background-color: #0084ff;
 	border: 1px solid #0084ff;
@@ -45,6 +46,7 @@
 	margin-bottom: 12px;
 }
 .signup-popup input[type='button']{
+	cursor: pointer;
 	width: 240px;
 	background-color: #232323;
 	border: 1px solid #232323;
