@@ -17,6 +17,7 @@ class App extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.handleScroll);
 	}
+
 	render() {
 		return (
 			<div>
@@ -29,7 +30,7 @@ class App extends React.Component {
 						<li><a className="active" onClick={()=>{
 							this.props.dispatch({type: 'SIGNUP_CLICK'});
 							}}>Sign Up</a></li>
-						<li><a href="#">Feature</a></li>
+						<li><a target='_blank' href="./feature">Feature</a></li>
 						<li><a className='mess' style={{display:this.state.mess}} href="#">"Cut Air"</a></li>
 						<li><a className='mess-icon' style={{display:this.state.messIcon}} href="#"></a></li>
 					</ul>		

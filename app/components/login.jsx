@@ -12,7 +12,7 @@ class Login extends React.Component {
 						<p>Đăng nhập để bắt đầu chém gió.</p>
 						<form onSubmit={this.handleSubmit}>
 							<input type='email' name='email' placeholder='Email' required/>
-							<input type='password' name='passwork' placeholder='Passwork' required/>
+							<input type='password' name='passwork' placeholder='Password' required/>
 							<button type='submit'>Đăng nhập</button>
 							<div className='remember-me'>
 							    <input type="checkbox" id="remember-me" />
@@ -27,7 +27,6 @@ class Login extends React.Component {
 		);
 	}
 	handleSubmit(event) {
-		alert('An essay was submitted: ');
 		event.preventDefault();
 	}
 }
