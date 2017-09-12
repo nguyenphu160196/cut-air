@@ -17,6 +17,22 @@ var userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.statics.comparePassword = function (candidatePassword, hashPassword, callback) {
+	bcrypt.compare(candidatePassword, hashPassword, (err, isMatch) => {
+		if (err) throw err;
+
+		callback(null, isMatch);
+	})
+};
+
+userSchema.statics.findUserById = function (id, callback) {
+	User.findById(id, callback);
+};
+
+userSchema.statics.findUserByUsername = function (username, callback) {
+	User.findOne({username}, callback);
+} 
+
 userSchema.pre('save', function (next) {
     var user = this;
     bcrypt.genSalt(10, function (err, satl) {

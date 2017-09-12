@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
+const passport = require('passport');
 
 const app = express();
 const config = require('./config/database');
@@ -34,6 +35,7 @@ app.use(expressValidator({
     };
   }
 }));
+require('./config/passport')(passport);
 
 app.use('/', index);
 app.use('/api/', users);

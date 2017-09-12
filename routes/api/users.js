@@ -45,10 +45,11 @@ router.post('/register', function (req, res, next) {
           let token = jwt.sign({
             _id: user._id,
             name: user.name
-          }, config.secret, { expiresIn: 1440 });
-          console.log("created: ", user);
+          }, 
+          config.secret, 
+          { expiresIn: 604800 });
           
-          return res.json({success: true, message: 'Sign up successfully', token: token});
+          return res.json({success: true, message: 'Sign up successfully', token: 'JWT '+token});
         })
         .catch(function (err) {
           return next(err);
@@ -56,8 +57,54 @@ router.post('/register', function (req, res, next) {
       }
     });
 	}
+});
 
+// Authenticate
+router.post('/authenticate', (req, res, next) => {
+	const username = req.body.username;
+	const password = req.body.password;
 
+	User.findUserByUsername(username, (err, user) => {
+		if (err) throw err;
+
+		if(!user) {
+			res.json({
+				success: false,
+				message: 'User not found'
+			});
+			return;
+		}
+
+		User.comparePassword(password, user.password, (err, isMatch) => {
+			if (err) throw err;
+			if (isMatch) {
+				const token = jwt.sign({
+          _id: user._id,
+          email: user.email,
+          name: user.name
+        }, 
+        config.secret, 
+        { expiresIn: 604800 });
+
+				res.json({
+					success: true,
+					token: 'JWT '+token,
+					user: {
+						id: user._id,
+						name: user.name,
+						email: user.email
+					}
+				});
+				return;
+			} else {
+				res.json({
+					success: false,
+					message: 'Wrong password'
+				});
+				return;
+			}
+		});
+	})
 });
 
 module.exports = router;
