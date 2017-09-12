@@ -1,0 +1,101 @@
+.container{
+    display: flex;
+}
+
+.left-content{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-right: 1px solid lightgray; 
+    margin: 0!important;
+}
+
+.right-content{  
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    margin: 0!important;
+}
+.above-right-content{
+    border-bottom: 1px solid lightgrey;
+    height: 50px;
+}
+.below-right-content{
+    position: absolute;
+    top: 50px;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+}
+
+.split-left{
+    
+}
+.split-left-f{
+    border-bottom: 1px solid lightgrey;
+    position: absolute;
+    top: 0px;
+    height: 50px;
+}
+.split-left-s{
+    position: absolute;
+    top: 50px;    
+    height: 40px;
+}
+.split-left-t{
+    border-top: 1px solid lightgray;
+    position: absolute;
+    bottom: 0px;
+    height: 100px;
+}
+
+.split-right{
+    border-left: 1px solid lightgrey;
+}
+
+.split-right-f{
+    width: 33%;
+    border-bottom: 1px solid lightgray;
+    position: absolute;
+    top: 0px;  
+    height: 50px;
+}
+
+.split-right-s{
+    border-bottom: 1px solid lightgrey;
+    width: 33%;
+    position: absolute;
+    top: 50px;
+}
+.split-right-t{  
+    width: 33%;
+    position: absolute;
+    bottom: 0px;
+    height: 200px;
+}
+.cpt-title{
+    border-bottom: 1px solid lightgrey;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+}
+
+.cpt-search{
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    height: 40px;
+}
+
+.cpt-list{
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;    
+}

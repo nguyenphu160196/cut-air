@@ -17,6 +17,7 @@ class App extends React.Component {
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.handleScroll);
 	}
+
 	render() {
 		return (
 			<div>
@@ -29,7 +30,7 @@ class App extends React.Component {
 						<li><a className="active" onClick={()=>{
 							this.props.dispatch({type: 'SIGNUP_CLICK'});
 							}}>Sign Up</a></li>
-						<li><a href="#">Feature</a></li>
+						<li><a href="/feature">Feature</a></li>
 						<li><a className='mess' style={{display:this.state.mess}} href="#">"Cut Air"</a></li>
 						<li><a className='mess-icon' style={{display:this.state.messIcon}} href="#"></a></li>
 					</ul>		
@@ -51,19 +52,19 @@ class App extends React.Component {
 					<p>Check out all you can do in Messenger.</p>
 					<div className='page-3-content col-8'>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='Aa'></div>
 								<h3>Know when people have seen your texts.</h3>
 							</a>
 						</div>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='phone_icon'></div>
 								<h3>Make HD calls anywhere in the world.</h3>
 							</a>
 						</div>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='camera_icon'></div>
 								<h3>Snap photos and shoot videos.</h3>
 							</a>
@@ -71,19 +72,19 @@ class App extends React.Component {
 					</div>
 					<div className='page-3-content col-8'>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='smile'></div>
 								<h3>Choose from thousands of stickers.</h3>
 							</a>
 						</div>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='record'></div>
 								<h3>Record voice messages.</h3>
 							</a>
 						</div>
 						<div className='content-child col-2'>
-							<a href='' target='_blank'>
+							<a href=''>
 								<div id='three_somes'></div>
 								<h3>Chat with your favorite groups.</h3>
 							</a>
