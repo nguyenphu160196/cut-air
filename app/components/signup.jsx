@@ -1,6 +1,8 @@
-import React from 'react';
+import React from 'react'
+import axios from 'axios'
 import { connect } from 'react-redux'
 import { signUpClick } from '../actions/action_signUp.js'
+
 
 class Signup extends React.Component{
 	constructor(props) {
@@ -11,6 +13,18 @@ class Signup extends React.Component{
 		
 	}
 	handleSubmit(event){
+		const data = {
+			name: this.username.value,
+			email: this.email.value,
+			password: this.password.value,
+			password2: this.repassword.value
+		}
+		axios.post('/api/register',data).then(function (response) {
+			console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 		event.preventDefault();
 	}
 	render() {
@@ -21,10 +35,10 @@ class Signup extends React.Component{
 						<label>Sign Up</label>
 					</div>
 					<form onSubmit={this.handleSubmit}>
-						<input type='text' name='username' placeholder='Username' required/>
-						<input type='email' name='email' placeholder='Email' required/>
-						<input type='password' name='password' placeholder='Password' required/>
-						<input type='password' name='re-password' placeholder='Re-Password' required/>
+						<input type='text' ref={(input) => {this.username = input;}} name='username' placeholder='Username' required/>
+						<input type='email' ref={(input) => {this.email = input;}} name='email' placeholder='Email' required/>
+						<input type='password' ref={(input) => {this.password = input;}} name='password' placeholder='Password' required/>
+						<input type='password' ref={(input) => {this.repassword = input;}} name='re-password' placeholder='Re-Password' required/>
 						<div className='btn_form'>
 							<input type='submit' className='signup-submit' value='Sign Up'/>
 							<input type='button' onClick={this.props.onCancel} className='signup-cancel' value='Cancel'/>

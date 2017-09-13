@@ -13,6 +13,7 @@ router.post('/register', function (req, res, next) {
       email = req.body.email,
       password = req.body.password,
       password2 = req.body.password2;
+      console.log(req.body)
 
 	req.checkBody('name', 'Name field is required.').notEmpty();
   req.checkBody('email', 'Email field is required.').notEmpty();

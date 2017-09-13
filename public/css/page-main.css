@@ -69,12 +69,7 @@
     position: absolute;
     top: 50px;
 }
-.split-right-t{  
-    width: 33%;
-    position: absolute;
-    bottom: 0px;
-    height: 200px;
-}
+
 .cpt-title{
     border-bottom: 1px solid lightgrey;
     position: absolute;

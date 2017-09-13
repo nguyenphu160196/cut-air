@@ -9,7 +9,6 @@ import Chatfield from './components/chatField.jsx';
 import InputChat from './components/inputChat.jsx';
 import AccountSetting from './components/accountSetting.jsx';
 import Options from './components/options.jsx';
-import Share from './components/share.jsx';
 
 
 class Main extends React.Component{
@@ -53,9 +52,6 @@ class Main extends React.Component{
                                 </div>
                                 <div className='split-right-s '>
                                     <Options></Options>
-                                </div>
-                                <div className='split-right-t '>
-                                    <Share></Share>
                                 </div>
                             </div>
                         </div>
