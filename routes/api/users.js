@@ -62,10 +62,10 @@ router.post('/register', function (req, res, next) {
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
-	const username = req.body.username;
+	const email = req.body.email;
 	const password = req.body.password;
 
-	User.findUserByUsername(username, (err, user) => {
+	User.findUserByEmail(email, (err, user) => {
 		if (err) throw err;
 
 		if(!user) {

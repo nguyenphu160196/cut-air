@@ -29,8 +29,8 @@ userSchema.statics.findUserById = function (id, callback) {
 	User.findById(id, callback);
 };
 
-userSchema.statics.findUserByUsername = function (username, callback) {
-	User.findOne({username}, callback);
+userSchema.statics.findUserByEmail = function (email, callback) {
+	User.findOne({email}, callback);
 } 
 
 userSchema.pre('save', function (next) {

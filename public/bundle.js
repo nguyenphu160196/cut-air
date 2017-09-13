@@ -26607,19 +26607,21 @@
 		function Login(props) {
 			_classCallCheck(this, Login);
 
-			return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			return _this;
 		}
 
 		_createClass(Login, [{
 			key: 'handleSubmit',
 			value: function handleSubmit(event) {
-				var data = {
-					username: this.loginEmail.value,
+				var data_login = {
+					email: this.loginEmail.value,
 					password: this.loginPassword.value
 				};
-				_axios2.default.post('/api/authenticate', data).then(function (response) {
+				_axios2.default.post('/api/authenticate', data_login).then(function (response) {
 					console.log(response);
-					// this.history.pushState();
 				}).catch(function (error) {
 					console.log(error);
 				});
@@ -26642,7 +26644,7 @@
 					_react2.default.createElement(
 						'p',
 						null,
-						'\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u tr\xF2 chuy\u1EC7n.'
+						'\u0110\u0103ng nh\u1EADp \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u.'
 					),
 					_react2.default.createElement(
 						'form',
@@ -26667,21 +26669,21 @@
 								null,
 								'Duy tr\xEC \u0111\u0103ng nh\u1EADp'
 							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'download' },
+						'T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn',
+						_react2.default.createElement(
+							'a',
+							{ href: '#' },
+							'iOS,'
 						),
 						_react2.default.createElement(
-							'div',
-							{ className: 'download' },
-							'T\u1EA3i \u1EE9ng d\u1EE5ng tr\xEAn',
-							_react2.default.createElement(
-								'a',
-								{ href: '#' },
-								'iOS,'
-							),
-							_react2.default.createElement(
-								'a',
-								{ href: '#' },
-								'Android'
-							)
+							'a',
+							{ href: '#' },
+							'Android'
 						)
 					)
 				);
