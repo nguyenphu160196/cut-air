@@ -1,21 +1,19 @@
-import { signUp_click } from '../actions/action_signUp.js'
-import { signUp_cancel } from '../actions/action_signUp.js'
+import { signUp_click, signUp_cancel } from '../actions/action_signUp.js'
+import {  } from '../actions/action_signUp.js'
 
 const signUpReducer = (state = {value:'none'}, action)=>{
    switch (action.type) {
-
-    case signUp_click:   
+    case SIGNUP_CLICK:   
         return {
         ...state,
         value: 'block'
         }
-    case signUp_cancel:   
+    case SIGNUP_CANCEL:   
         return {
         ...state,
         value: 'none'
-    }
-  
-      default:
+    }  
+    default:
       return state
    }
 }  

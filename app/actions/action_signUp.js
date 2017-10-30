@@ -3,12 +3,12 @@ export const signUp_cancel = 'SIGNUP_CANCEL'
 
 export const signUpClick = ()=>{
    return {
-      type: signUp_click
+      type: SIGNUP_CLICK
    };
 }
 
 export const signUpCancel = ()=>{
     return {
-       type: signUp_cancel
+       type: SIGNUP_CANCEL
     };
  }

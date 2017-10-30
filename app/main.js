@@ -6,7 +6,6 @@ import { combineReducers } from 'redux'
 
 import App from './app.jsx';
 import signUpReducer from './reducers/reducer_signUp.js'
-import Main from './page-main.jsx'
 
 const combine = combineReducers({
 	signUpReducer

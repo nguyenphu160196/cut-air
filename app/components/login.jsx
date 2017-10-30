@@ -11,7 +11,8 @@ class Login extends React.Component {
 			email: this.loginEmail.value,
 			password: this.loginPassword.value
 		}
-		axios.post('/api/authenticate',data_login).then(function (response) {
+		axios.post('/api/authenticate',data_login)
+		.then(function (response){
 			console.log(response);
 			
 		})

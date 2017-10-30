@@ -19,7 +19,8 @@ class Signup extends React.Component{
 			password: this.password.value,
 			password2: this.repassword.value
 		}
-		axios.post('/api/register',data).then(function (response) {
+		axios.post('/api/register',data)
+		.then(function (response){
 			console.log(response);
 		})
 		.catch(function (error) {
