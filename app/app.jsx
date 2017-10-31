@@ -21,7 +21,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Signup display={this.props.myValue} onCancel={()=>{
+				<Signup display={this.props.signup} onCancel={()=>{
 						this.props.dispatch({type: 'SIGNUP_CANCEL'});
 					}
 				}></Signup>
@@ -115,7 +115,7 @@ class App extends React.Component {
 }
 
 const mapStatetoProp = (state)=>{
-	return {myValue: state.signUpReducer.value}
+	return {signup: state.signUpReducer.value}
 }
 
 export default connect(mapStatetoProp)(App);

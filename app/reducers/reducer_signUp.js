@@ -3,12 +3,12 @@ import {  } from '../actions/action_signUp.js'
 
 const signUpReducer = (state = {value:'none'}, action)=>{
    switch (action.type) {
-    case SIGNUP_CLICK:   
+    case signUp_click:   
         return {
         ...state,
         value: 'block'
         }
-    case SIGNUP_CANCEL:   
+    case signUp_cancel:   
         return {
         ...state,
         value: 'none'

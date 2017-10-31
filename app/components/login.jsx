@@ -7,18 +7,19 @@ class Login extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	handleSubmit(event) {
-		const data_login = {
+		var data_login = {
 			email: this.loginEmail.value,
 			password: this.loginPassword.value
 		}
-		axios.post('/api/authenticate',data_login)
-		.then(function (response){
-			console.log(response);
-			
+		return new Promise((resolve, reject) => {
+			axios.post('/api/authenticate',data_login)
+			.then(function (response){
+				console.log(response);				
+			}, err => {
+				console.log(err);
+			})
+			resolve();
 		})
-		.catch(function (error) {
-			console.log(error);
-		});
 		event.preventDefault();
 	}
 	render() {
