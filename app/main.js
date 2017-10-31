@@ -6,15 +6,23 @@ import { combineReducers } from 'redux'
 
 import App from './app.jsx';
 import signUpReducer from './reducers/reducer_signUp.js'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 const combine = combineReducers({
 	signUpReducer
 })
+
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <Router>
+      <Route exact path="/" component={App} />
+    </Router>
+  </Provider>
+)
+
 let store = createStore(combine)
 
 ReactDOM.render(
-	<Provider store = {store}>
-		<App/>
-	</Provider>,
+		<Root store={store}/>,
 	document.getElementById('root')
 );
