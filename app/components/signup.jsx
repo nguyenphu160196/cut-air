@@ -8,25 +8,37 @@ class Signup extends React.Component{
 	constructor(props) {
 	    super(props);
 	    this.handleSubmit = this.handleSubmit.bind(this);
+	    this.state={display:'none'}
 	}
 	componentDidMount() {
 		
 	}
 	handleSubmit(event){
+		event.preventDefault();
 		const data = {
 			name: this.username.value,
 			email: this.email.value,
 			password: this.password.value,
 			password2: this.repassword.value
 		}
-		axios.post('/api/register',data)
-		.then(function (response){
-			console.log(response);
+		return new Promise((resolve, reject) => {
+			axios.post('/api/register',data)
+			.then(function (response){
+				return new Promise((resolve, reject) => {
+				axios.post('/api/authenticate', {email: data.email, password:data.password})
+				.then(function (response){
+					localStorage.setItem("user", {name: response.name, email: response.email})
+					localStorage.setItem("access_token", response.token);				
+				}, err => {
+					console.log(err.message);
+				})
+				resolve();
+			})
+			}, err => {
+				console.log(err);
+			})
+			resolve();
 		})
-		.catch(function (error) {
-			console.log(error);
-		});
-		event.preventDefault();
 	}
 	render() {
 		return (
