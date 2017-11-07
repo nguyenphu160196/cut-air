@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 class Login extends React.Component {
@@ -18,7 +19,9 @@ class Login extends React.Component {
 			axios.post('/api/authenticate',data_login)
 			.then(response => {
 				localStorage.setItem("user", {name: response.name, email: response.email})
-				localStorage.setItem("access_token", response.token);					
+				localStorage.setItem("access_token", response.token);	
+				location.href = '/home';
+				<Link to="/home" />
 			}, err => {
 				console.log(err.message);
 			})
@@ -40,10 +43,6 @@ class Login extends React.Component {
 						<label>Duy trì đăng nhập</label>
 					</div>
 				</form>
-				<div className='download'>Tải ứng dụng trên  
-					<a href='#'>iOS,</a>
-					<a href='#'>Android</a>
-				</div>
 			</div>
 		);
 	}

@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { signUpClick } from '../actions/action_signUp.js'
+import { Link } from 'react-router-dom'
 
 
 class Signup extends React.Component{
@@ -25,15 +26,17 @@ class Signup extends React.Component{
 			axios.post('/api/register',data)
 			.then(function (response){
 				return new Promise((resolve, reject) => {
-				axios.post('/api/authenticate', {email: data.email, password:data.password})
-				.then(function (response){
-					localStorage.setItem("user", {name: response.name, email: response.email})
-					localStorage.setItem("access_token", response.token);				
-				}, err => {
-					console.log(err.message);
+					axios.post('/api/authenticate', {email: data.email, password:data.password})
+					.then(function (response){
+						localStorage.setItem("user", {name: response.name, email: response.email})
+						localStorage.setItem("access_token", response.token);		
+						location.href = '/home';
+						<Link to="/home"/>
+					}, err => {
+						console.log(err.message);
+					})
+					resolve();
 				})
-				resolve();
-			})
 			}, err => {
 				console.log(err);
 			})
