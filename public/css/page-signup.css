@@ -10,7 +10,7 @@
 	margin: 74px 433px;  
 	background-color: #fff;
 	border-radius: 4px;
-	width: 550px;
+	width: 35%;
 }
 .signup-popup form{
 	display: flex;
@@ -21,43 +21,43 @@
 .signup-popup input[type='text'],
 .signup-popup input[type='email'],
 .signup-popup input[type='password']{
-	width: 500px;
+	width: 85%;
 	border: 1px solid rgba(0,0,0,0.2);
 	font-family: Helvetica;
-	height: 42px;
+	height: 37px;
 	font-size: 17px;
 	border-radius: 4px;
 	padding: 0 16px;
-	margin-bottom: 12px;
+	margin-bottom: 20px;
 }
 .signup-popup input[type='submit']{
 	cursor: pointer;
-	width: 240px;
+	width: 48%;
 	background-color: #0084ff;
 	border: 1px solid #0084ff;
 	color: #fff;
 	font-weight: 600;
 	font-family: Helvetica;
-	height: 42px;
+	height: 37px;
 	font-size: 17px;
-	line-height: 42px;
+	line-height: 35px;
 	border-radius: 4px;
-	margin: 0px 10px;
+	margin-right: 10px;
 	margin-bottom: 12px;
 }
 .signup-popup input[type='button']{
 	cursor: pointer;
-	width: 240px;
+	width: 48%;
 	background-color: #232323;
 	border: 1px solid #232323;
 	color: #fff;
 	font-weight: 600;
 	font-family: Helvetica;
-	height: 42px;
+	height: 37px;
 	font-size: 17px;
-	line-height: 42px;
+	line-height: 35px;
 	border-radius: 4px;
-	margin: 0px 10px;
+	margin-left: 6px;
 	margin-bottom: 12px;
 }
 .signup-label{
@@ -70,6 +70,10 @@
 	font-weight: 600;
 	font-family: Helvetica;
 	font-size: 17px;
+}
+
+.btn_form{
+	width: 85%;
 }
 /*.signup-label-img{
 	background-image: url('');
