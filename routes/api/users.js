@@ -13,7 +13,6 @@ router.post('/register', function (req, res, next) {
       email = req.body.email,
       password = req.body.password,
       password2 = req.body.password2;
-      console.log(req.body)
 
 	req.checkBody('name', 'Name field is required.').notEmpty();
   req.checkBody('email', 'Email field is required.').notEmpty();
@@ -22,7 +21,7 @@ router.post('/register', function (req, res, next) {
   req.checkBody('password2', 'Confirm password field is required.').notEmpty();
   req.checkBody('password2', 'Password does not match.').equals(req.body.password);
 	errors = req.validationErrors();
-	
+
 	if (errors) {
 		res.json({ success: false, errors: errors });
         // console.log("error");
@@ -46,10 +45,10 @@ router.post('/register', function (req, res, next) {
           let token = jwt.sign({
             _id: user._id,
             name: user.name
-          }, 
-          config.secret, 
+          },
+          config.secret,
           { expiresIn: 604800 });
-          
+
           return res.json({success: true, message: 'Sign up successfully', token: 'JWT '+token});
         })
         .catch(function (err) {
@@ -83,8 +82,8 @@ router.post('/authenticate', (req, res, next) => {
           _id: user._id,
           email: user.email,
           name: user.name
-        }, 
-        config.secret, 
+        },
+        config.secret,
         { expiresIn: 604800 });
 
 				res.json({

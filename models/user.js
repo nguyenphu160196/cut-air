@@ -14,7 +14,14 @@ var userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    user_name: String,
+    first_name: String,
+    last_name: String,
+    friends: [{
+        type: mongoose.Schema.Type.ObjectId,
+        ref: 'user'
+    }]
 });
 
 userSchema.statics.comparePassword = function (candidatePassword, hashPassword, callback) {
@@ -25,13 +32,9 @@ userSchema.statics.comparePassword = function (candidatePassword, hashPassword, 
 	})
 };
 
-userSchema.statics.findUserById = function (id, callback) {
-	User.findById(id, callback);
-};
-
 userSchema.statics.findUserByEmail = function (email, callback) {
 	User.findOne({email}, callback);
-} 
+}
 
 userSchema.pre('save', function (next) {
     var user = this;
