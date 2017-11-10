@@ -19,7 +19,7 @@ var userSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
     friends: [{
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     }]
 });
