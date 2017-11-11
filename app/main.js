@@ -4,6 +4,7 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import App from './app.jsx';
 import Home from './components/home.jsx'
+import Feature from './feature.jsx'
 import signUpReducer from './reducers/reducer_signUp.js'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,6 +19,7 @@ const Root = ({ store }) => (
     	<div>
 	      <Route exact path="/" component={App} />
 	      <Route path="/home" component={Home} />
+        <Route path="/feature" component={Feature} />
 	    </div>
     </Router>
   </Provider>

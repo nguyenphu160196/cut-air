@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { signUpClick } from './actions/action_signUp.js'
-
 import Signup from './components/signup.jsx';
 import Login from './components/login.jsx';
 import './css/page-main.css'
@@ -31,7 +30,7 @@ class App extends React.Component {
 						<li><a className="active" onClick={()=>{
 							this.props.dispatch({type: 'SIGNUP_CLICK'});
 							}}>Sign Up</a></li>
-						<li><a href="/feature" target='_blank'>Feature</a></li>
+						<li><a href='/feature' target='_blank'>Feature</a></li>
 						<li><a className='mess' style={{display:this.state.mess}} href="#">"Cut Air"</a></li>
 						<li><a className='mess-icon' style={{display:this.state.messIcon}} href="#"></a></li>
 					</ul>		

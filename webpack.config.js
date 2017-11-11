@@ -3,40 +3,33 @@ const path = require('path');
 module.exports = {
   entry: './app/main.js', 
   output: {
-    path: __dirname,
-    filename: './build/bundle.js',
-    chunkFilename: "[id].js"
+    path: path.resolve(__dirname, './build'),
+    filename: 'bundle.js'
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        exclude: [
-          path.resolve(__dirname, "node_modules")
-        ], 
+        test: /\.css$/,   
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: "css-loader"
         })
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        exclude: [
-          path.resolve(__dirname, "node_modules")
-        ],
+        test: /\.(jpe?g|png|gif|svg)$/i, 
         use: [
           'url-loader',
           'img-loader'
         ]
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx)$/,  
         exclude: [
           path.resolve(__dirname, "node_modules")
         ],
         use: [{
           loader: 'babel-loader',
-          query: {
+          options: {
             presets: ['es2015', 'stage-0', 'react']
           }
         }]
@@ -44,6 +37,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("./build/styles.css"),
+    new ExtractTextPlugin("styles.css"),
   ]
 };

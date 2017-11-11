@@ -42,7 +42,7 @@ app.use(expressValidator({
   }
 }));
 
-app.use('/', index);
+app.use('/*', index);
 app.use('/api/', users);
 io.on('connection', chatAPI);
 

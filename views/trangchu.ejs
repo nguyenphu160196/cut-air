@@ -10,5 +10,15 @@
 <body>
 	<div id="root">Loading...</div>
 	<script src="bundle.js"></script>
+	<script type="text/javascript">
+		function LoginExist(){
+			if(localStorage['access_token']){
+				location.href = "/home";
+			}else{
+				location.href = "/";
+			}
+		};
+		LoginExist();
+	</script>
 </body>
 </html>

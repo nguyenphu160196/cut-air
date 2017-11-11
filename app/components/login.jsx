@@ -2,33 +2,50 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import '../css/page-login.css'
-
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.state={display:'none'}
+		this.handleClose = this.handleClose.bind(this);
+		this.state={display:'none', dialog:false, message:''}
 	}
+
+	handleClose = () => {
+		this.setState({dialog: false});
+	};
+
 	handleSubmit(event) {
 		event.preventDefault();
 		var data_login = {
 			email: this.loginEmail.value,
 			password: this.loginPassword.value
 		}
-		return new Promise((resolve, reject) => {
-			axios.post('/api/authenticate',data_login)
-			.then(response => {
-				localStorage.setItem("user", {name: response.name, email: response.email})
-				localStorage.setItem("access_token", response.token);	
-				location.href = '/home';				
-			}, err => {
-				console.log(err.message);
-			})
-			resolve();
+		axios.post('/api/authenticate',data_login)
+		.then(function (response) {
+			var res = response.data;
+			if(res.success == true){
+				localStorage.setItem("access_token", res.token);
+				localStorage.user = JSON.stringify(res.user);
+				location.href = '/home';
+			}else{
+				this.setState({dialog:true, message: 'The email or password is incorrect!'});
+			}
+		})
+		.catch(function (error){
 		})
 	}
+
 	render() {
+		const actions = [
+			<FlatButton
+			  label="OK"
+			  primary={true}
+			  onClick={this.handleClose}
+			/>
+		];
 		return (
 			<div className='login-field col-5'>
 				<div className='icon2x'></div>
@@ -43,6 +60,14 @@ class Login extends React.Component {
 						<label>Duy trì đăng nhập</label>
 					</div>
 				</form>
+				<Dialog
+					actions={actions}
+					modal={false}
+					open={this.state.dialog}
+					onRequestClose={this.handleClose}
+				>
+					{this.state.message}
+				</Dialog>
 			</div>
 		);
 	}
