@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { signUpClick } from '../actions/action_signUp.js'
 import { Link } from 'react-router-dom'
+import '../css/page-signup.css'
 
 
 class Signup extends React.Component{

@@ -74,6 +74,7 @@
 
 .btn_form{
 	width: 85%;
+	display: flex;
 }
 /*.signup-label-img{
 	background-image: url('');

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import '../css/page-login.css'
 
 
 class Login extends React.Component {
@@ -20,8 +21,7 @@ class Login extends React.Component {
 			.then(response => {
 				localStorage.setItem("user", {name: response.name, email: response.email})
 				localStorage.setItem("access_token", response.token);	
-				location.href = '/home';
-				<Link to="/home" />
+				location.href = '/home';				
 			}, err => {
 				console.log(err.message);
 			})
