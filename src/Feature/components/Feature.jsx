@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { browserHistory } from 'react-router';
-import './css/page-feature.css'
+import './feature.css'
 
 class Feature extends React.Component {
 	constructor(props) {

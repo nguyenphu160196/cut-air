@@ -1,9 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { connect } from 'react-redux'
-import { signUpClick } from '../actions/action_signUp.js'
-import { Link } from 'react-router-dom'
-import '../css/page-signup.css'
+import './signup.css'
 
 
 class Signup extends React.Component{
@@ -32,7 +29,6 @@ class Signup extends React.Component{
 						localStorage.setItem("user", {name: response.name, email: response.email})
 						localStorage.setItem("access_token", response.token);		
 						location.href = '/home';
-						<Link to="/home"/>
 					}, err => {
 						console.log(err.message);
 					})

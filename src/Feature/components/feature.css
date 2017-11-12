@@ -75,7 +75,7 @@ body::-webkit-scrollbar-thumb {
 
 .feature-1-img{
     margin-left: 200px;
-    background-image: url('../img/TEXTS.png');
+    background-image: url('../assets/TEXTS.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 354px;
@@ -124,7 +124,7 @@ body::-webkit-scrollbar-thumb {
 }
 .feature-2-imgl{
     margin: 50px 80px 0px 80px;    
-    background-image: url('../img/VOICES.png');
+    background-image: url('../assets/VOICES.png');
     background-repeat: no-repeat;
     background-size: 100% auto;
     width: 393px;
@@ -132,7 +132,7 @@ body::-webkit-scrollbar-thumb {
 }
 .feature-2-imgr{
     margin: 50px 80px 0px 80px;    
-    background-image: url('../img/VIDEOCALLS.png');
+    background-image: url('../assets/VIDEOCALLS.png');
     background-repeat: no-repeat;
     background-size: 100% auto;
     width: 393px;
@@ -183,7 +183,7 @@ body::-webkit-scrollbar-thumb {
 
 .feature-3-img{
     margin-left: 200px;
-    background-image: url('../img/PHOTOS.png');
+    background-image: url('../assets/PHOTOS.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 393px;
@@ -233,7 +233,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .feature-4-img{
-    background-image: url('../img/LOCATION.png');
+    background-image: url('../assets/LOCATION.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 512px;
@@ -279,7 +279,7 @@ body::-webkit-scrollbar-thumb {
 }
 .feature-5-img{
     margin: 50px 80px 0px 80px;    
-    background-image: url('../img/STICKERS.png');
+    background-image: url('../assets/STICKERS.png');
     background-repeat: no-repeat;
     background-size: 100% auto;
     width: 284px;
@@ -330,7 +330,7 @@ body::-webkit-scrollbar-thumb {
 
 .feature-6-img{
     margin-left: 150px;
-    background-image: url('../img/VOICES_MESS.png');
+    background-image: url('../assets/VOICES_MESS.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 490px;
@@ -381,7 +381,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .feature-7-img{
-    background-image: url('../img/PAYMENT.png');
+    background-image: url('../assets/PAYMENT.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 582px;
@@ -432,7 +432,7 @@ body::-webkit-scrollbar-thumb {
 
 .feature-8-img{
     margin-left: 150px;
-    background-image: url('../img/GROUP.png');
+    background-image: url('../assets/GROUP.png');
     background-size: 100% auto;
     background-repeat: no-repeat;
     width: 350px;
