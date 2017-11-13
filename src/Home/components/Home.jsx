@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from 'axios'
-import { browserHistory } from 'react-router';
 
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 	render() {
+		if(!localStorage['access_token']){
+			location.href = '/';
+		}
 		return (
 			<div>	
 			Home

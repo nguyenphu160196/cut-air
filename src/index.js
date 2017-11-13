@@ -7,7 +7,7 @@ import Main from './Main/components/Main.js';
 import Home from './Home/components/Home.jsx'
 import Feature from './Feature/components/Feature.jsx'
 import MainReducer from './Main/modules/main.js'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const combine = combineReducers({
@@ -18,7 +18,7 @@ const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
     	<div>
-	      <Route exact path="/" component={Main} />
+	      <Route exact path="/" component={Main}/>
 	      <Route path="/home" component={Home} />
         <Route path="/feature" component={Feature} />
 	    </div>

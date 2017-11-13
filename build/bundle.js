@@ -26238,6 +26238,9 @@ var Main = exports.Main = function Main(_ref) {
 	    handleScroll = _ref.handleScroll,
 	    handleSignup = _ref.handleSignup;
 
+	if (localStorage['access_token']) {
+		location.href = '/home';
+	}
 	return _react2.default.createElement(
 		'div',
 		null,
@@ -34687,8 +34690,6 @@ var _axios = __webpack_require__(41);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouter = __webpack_require__(135);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34709,6 +34710,9 @@ var Home = function (_React$Component) {
 	_createClass(Home, [{
 		key: 'render',
 		value: function render() {
+			if (!localStorage['access_token']) {
+				location.href = '/';
+			}
 			return _react2.default.createElement(
 				'div',
 				null,

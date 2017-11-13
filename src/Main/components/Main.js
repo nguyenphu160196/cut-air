@@ -8,6 +8,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
 export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog, handleScroll, handleSignup}) => {
+	if(localStorage['access_token']){
+		location.href = '/home'
+	}
 	return (
 	<div>
 		<Signup 
