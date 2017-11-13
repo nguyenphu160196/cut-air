@@ -2,25 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import Signup from '../../SignUp/components/Signup.jsx';
 import Login from '../../Login/components/Login.jsx';
+import {signupClick, signupCancel, closeDialog, handleLogin, handleScroll, handleSignup} from '../modules/main.js'
 import './main.css'
 import { connect } from 'react-redux'
-import {signupClick, signupCancel} from '../modules/main.js'
 import { bindActionCreators } from 'redux';
 
-export const Main = ({main, signupClick, signupCancel}) => {
+export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog, handleScroll, handleSignup}) => {
 	return (
 	<div>
-		<Signup display={main.display} onCancel={signupCancel}></Signup>
+		<Signup 
+			display={main.display}
+			onCancel={signupCancel}
+			handleSignup={handleSignup}
+		></Signup>
 		<div className="nav-bar col-12">
 			<ul>
 				<li><a className="active" onClick={signupClick}>Sign Up</a></li>
 				<li><a href='/feature' target='_blank'>Feature</a></li>
-				<li><a className='mess' style={{display:'none'}} href="#">"Cut Air"</a></li>
-				<li><a className='mess-icon' style={{display:'none'}} href="#"></a></li>
+				<li><a className='mess' style={{display: main.icon}} href="#">"Cut Air"</a></li>
+				<li><a className='mess-icon' style={{display: main.icon}} href="#"></a></li>
 			</ul>		
 		</div>
 		<div className='page-1 col-12'>
-			<Login></Login>
+			<Login 
+				closeDialog={closeDialog} 
+				handleLogin={handleLogin}
+				message={main.message}
+				dialog={main.dialog}
+				handleScroll={handleScroll}
+			></Login>
 			<div className='devices-img col-7'></div>
 		</div>
 		<div className='page-2 col-12'>
@@ -84,7 +94,7 @@ export const Main = ({main, signupClick, signupCancel}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({signupClick, signupCancel}, dispatch);
+	return bindActionCreators({signupClick, signupCancel, closeDialog, handleLogin, handleScroll, handleSignup}, dispatch);
 }
 
 const mapStatetoProps = (state)=>{
@@ -96,5 +106,9 @@ export default connect(mapStatetoProps, mapDispatchToProps)(Main);
 Main.PropTypes = {
 	main: PropTypes.object.isRequired,
 	signupClick: PropTypes.func.isRequired,
-	signupCancel: PropTypes.func.isRequired
+	signupCancel: PropTypes.func.isRequired,
+	closeDialog: PropTypes.func.isRequired,
+	handleLogin: PropTypes.func.isRequired,
+	handleScroll: PropTypes.func.isRequired,
+	handleSignup: PropTypes.func.isRequired
 }

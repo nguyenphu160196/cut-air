@@ -1,5 +1,34 @@
+import axios from 'axios'
+
 export const SIGNUP_CLICK = 'SIGNUP_CLICK'
 export const SIGNUP_CANCEL = 'SIGNUP_CANCEL'
+export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const CLOSE_DIALOG = 'CLOSE_DIALOG'
+export const ICON_CHANGE = 'ICON_CHANGE'
+export const SIGNUP_FAIL = 'SIGNUP_FAIL'
+
+export const handleSignup = (body,login) => {
+    return (dispatch, getState) => {
+        axios.post('/api/register',body)
+		.then(function (response){
+			axios.post('/api/authenticate',login)
+			.then(function (response) {
+				var res = response.data;
+                localStorage.setItem("access_token", res.token);
+                localStorage.user = JSON.stringify(res.user);
+                location.href = '/home';			
+			})
+			.catch(function (error){
+			})
+		})
+		.catch(function (error){
+            dispatch({
+                type: SIGNUP_FAIL,
+                payload: 'An Error Occurr!'
+            })
+		})
+    }
+}
 
 export function handleScroll() {
     var supportPageOffset = window.pageXOffset !== undefined;
@@ -8,6 +37,46 @@ export function handleScroll() {
         x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
         y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
     }
+    return (dispatch, getState) => {
+        var main = {...getState().main};
+        if(scroll.y > 0){
+            dispatch({
+                type: ICON_CHANGE,
+                payload: 'block'
+            })
+        }else if(scroll.y == 0){
+            dispatch({
+                type: ICON_CHANGE,
+                payload: 'none'                
+            })
+        }   
+    }
+}
+
+export const closeDialog = () => {
+    return {
+        type: CLOSE_DIALOG
+    }
+}
+
+export const handleLogin = (body) => {
+   return (dispatch, getState) => {
+    axios.post('/api/authenticate', body)
+    .then(function (response) {
+        var res = response.data;
+        if(res.success == true){
+            localStorage.setItem("access_token", res.token);
+            localStorage.user = JSON.stringify(res.user);
+            location.href = '/home';
+        }else{
+            dispatch({
+                type: LOGIN_FAIL
+            })
+        }
+    })
+    .catch(function (error){
+    })
+   }
 }
 
 export const signupClick = () => {
@@ -23,7 +92,10 @@ export const signupCancel = () => {
  }
 
  const initialState = {
-    display: 'none'
+    display: 'none',
+    message: '',
+    dialog: false,
+    icon: 'none'
  }
 
  export const MainReducer = (state = initialState, action)=>{
@@ -38,6 +110,28 @@ export const signupCancel = () => {
         ...state,
         display: 'none'
     }  
+    case LOGIN_FAIL:   
+        return {
+        ...state,
+        dialog: true,
+        message: 'The email or password is incorrect!'
+        }
+    case CLOSE_DIALOG:
+        return {
+        ...state,
+        dialog: false
+        }
+    case ICON_CHANGE:
+        return {
+        ...state,
+        icon: action.payload
+        }
+    case SIGNUP_FAIL:
+        return {
+        ...state,
+        message: action.payload,
+        dialog: true
+        }
     default:
       return state
    }
