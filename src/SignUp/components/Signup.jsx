@@ -6,39 +6,6 @@ import './signup.css'
 class Signup extends React.Component{
 	constructor(props) {
 	    super(props);
-	    this.handleSubmit = this.handleSubmit.bind(this);
-	    this.state={display:'none'}
-	}
-	componentDidMount() {
-		
-	}
-	handleSubmit(event){
-		event.preventDefault();
-		const data = {
-			name: this.username.value,
-			email: this.email.value,
-			password: this.password.value,
-			password2: this.repassword.value
-		}
-		return new Promise((resolve, reject) => {
-			axios.post('/api/register',data)
-			.then(function (response){
-				return new Promise((resolve, reject) => {
-					axios.post('/api/authenticate', {email: data.email, password:data.password})
-					.then(function (response){
-						localStorage.setItem("user", {name: response.name, email: response.email})
-						localStorage.setItem("access_token", response.token);		
-						location.href = '/home';
-					}, err => {
-						console.log(err.message);
-					})
-					resolve();
-				})
-			}, err => {
-				console.log(err);
-			})
-			resolve();
-		})
 	}
 	render() {
 		return (
@@ -47,7 +14,18 @@ class Signup extends React.Component{
 					<div className='signup-label'>
 						<label>Sign Up</label>
 					</div>
-					<form onSubmit={this.handleSubmit}>
+					<form onSubmit={e => {
+						e.preventDefault()
+						this.props.handleSignup({
+							name: this.username.value,
+							email: this.email.value,
+							password: this.password.value,
+							password2: this.repassword.value
+						},
+							{email: this.email.value,
+							password: this.password.value}
+						)}
+					}>
 						<input type='text' ref={(input) => {this.username = input;}} name='username' placeholder='Username' required/>
 						<input type='email' ref={(input) => {this.email = input;}} name='email' placeholder='Email' required/>
 						<input type='password' ref={(input) => {this.password = input;}} name='password' placeholder='Password' required/>

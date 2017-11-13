@@ -6860,56 +6860,144 @@ module.exports = { "default": __webpack_require__(279), __esModule: true };
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+    value: true
 });
+exports.MainReducer = exports.signupCancel = exports.signupClick = exports.handleLogin = exports.closeDialog = exports.handleSignup = exports.SIGNUP_FAIL = exports.ICON_CHANGE = exports.CLOSE_DIALOG = exports.LOGIN_FAIL = exports.SIGNUP_CANCEL = exports.SIGNUP_CLICK = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.handleScroll = handleScroll;
+
+var _axios = __webpack_require__(41);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var SIGNUP_CLICK = exports.SIGNUP_CLICK = 'SIGNUP_CLICK';
 var SIGNUP_CANCEL = exports.SIGNUP_CANCEL = 'SIGNUP_CANCEL';
+var LOGIN_FAIL = exports.LOGIN_FAIL = 'LOGIN_FAIL';
+var CLOSE_DIALOG = exports.CLOSE_DIALOG = 'CLOSE_DIALOG';
+var ICON_CHANGE = exports.ICON_CHANGE = 'ICON_CHANGE';
+var SIGNUP_FAIL = exports.SIGNUP_FAIL = 'SIGNUP_FAIL';
+
+var handleSignup = exports.handleSignup = function handleSignup(body, login) {
+    return function (dispatch, getState) {
+        _axios2.default.post('/api/register', body).then(function (response) {
+            _axios2.default.post('/api/authenticate', login).then(function (response) {
+                var res = response.data;
+                localStorage.setItem("access_token", res.token);
+                localStorage.user = JSON.stringify(res.user);
+                location.href = '/home';
+            }).catch(function (error) {});
+        }).catch(function (error) {
+            dispatch({
+                type: SIGNUP_FAIL,
+                payload: 'An Error Occurr!'
+            });
+        });
+    };
+};
 
 function handleScroll() {
-   var supportPageOffset = window.pageXOffset !== undefined;
-   var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
-   var scroll = {
-      x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
-      y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
-   };
+    var supportPageOffset = window.pageXOffset !== undefined;
+    var isCSS1Compat = (document.compatMode || '') === 'CSS1Compat';
+    var scroll = {
+        x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
+        y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+    };
+    return function (dispatch, getState) {
+        var main = _extends({}, getState().main);
+        if (scroll.y > 0) {
+            dispatch({
+                type: ICON_CHANGE,
+                payload: 'block'
+            });
+        } else if (scroll.y == 0) {
+            dispatch({
+                type: ICON_CHANGE,
+                payload: 'none'
+            });
+        }
+    };
 }
 
+var closeDialog = exports.closeDialog = function closeDialog() {
+    return {
+        type: CLOSE_DIALOG
+    };
+};
+
+var handleLogin = exports.handleLogin = function handleLogin(body) {
+    return function (dispatch, getState) {
+        _axios2.default.post('/api/authenticate', body).then(function (response) {
+            var res = response.data;
+            if (res.success == true) {
+                localStorage.setItem("access_token", res.token);
+                localStorage.user = JSON.stringify(res.user);
+                location.href = '/home';
+            } else {
+                dispatch({
+                    type: LOGIN_FAIL
+                });
+            }
+        }).catch(function (error) {});
+    };
+};
+
 var signupClick = exports.signupClick = function signupClick() {
-   return {
-      type: SIGNUP_CLICK
-   };
+    return {
+        type: SIGNUP_CLICK
+    };
 };
 
 var signupCancel = exports.signupCancel = function signupCancel() {
-   return {
-      type: SIGNUP_CANCEL
-   };
+    return {
+        type: SIGNUP_CANCEL
+    };
 };
 
 var initialState = {
-   display: 'none'
+    display: 'none',
+    message: '',
+    dialog: false,
+    icon: 'none'
 };
 
 var MainReducer = exports.MainReducer = function MainReducer() {
-   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-   var action = arguments[1];
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
 
-   switch (action.type) {
-      case SIGNUP_CLICK:
-         return _extends({}, state, {
-            display: 'block'
-         });
-      case SIGNUP_CANCEL:
-         return _extends({}, state, {
-            display: 'none'
-         });
-      default:
-         return state;
-   }
+    switch (action.type) {
+        case SIGNUP_CLICK:
+            return _extends({}, state, {
+                display: 'block'
+            });
+        case SIGNUP_CANCEL:
+            return _extends({}, state, {
+                display: 'none'
+            });
+        case LOGIN_FAIL:
+            return _extends({}, state, {
+                dialog: true,
+                message: 'The email or password is incorrect!'
+            });
+        case CLOSE_DIALOG:
+            return _extends({}, state, {
+                dialog: false
+            });
+        case ICON_CHANGE:
+            return _extends({}, state, {
+                icon: action.payload
+            });
+        case SIGNUP_FAIL:
+            return _extends({}, state, {
+                message: action.payload,
+                dialog: true
+            });
+        default:
+            return state;
+    }
 };
 
 exports.default = MainReducer;
@@ -26131,11 +26219,11 @@ var _Login = __webpack_require__(198);
 
 var _Login2 = _interopRequireDefault(_Login);
 
+var _main = __webpack_require__(134);
+
 __webpack_require__(290);
 
 var _reactRedux = __webpack_require__(90);
-
-var _main = __webpack_require__(134);
 
 var _redux = __webpack_require__(49);
 
@@ -26144,12 +26232,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Main = exports.Main = function Main(_ref) {
 	var main = _ref.main,
 	    signupClick = _ref.signupClick,
-	    signupCancel = _ref.signupCancel;
+	    signupCancel = _ref.signupCancel,
+	    handleLogin = _ref.handleLogin,
+	    closeDialog = _ref.closeDialog,
+	    handleScroll = _ref.handleScroll,
+	    handleSignup = _ref.handleSignup;
 
 	return _react2.default.createElement(
 		'div',
 		null,
-		_react2.default.createElement(_Signup2.default, { display: main.display, onCancel: signupCancel }),
+		_react2.default.createElement(_Signup2.default, {
+			display: main.display,
+			onCancel: signupCancel,
+			handleSignup: handleSignup
+		}),
 		_react2.default.createElement(
 			'div',
 			{ className: 'nav-bar col-12' },
@@ -26179,21 +26275,27 @@ var Main = exports.Main = function Main(_ref) {
 					null,
 					_react2.default.createElement(
 						'a',
-						{ className: 'mess', style: { display: 'none' }, href: '#' },
+						{ className: 'mess', style: { display: main.icon }, href: '#' },
 						'"Cut Air"'
 					)
 				),
 				_react2.default.createElement(
 					'li',
 					null,
-					_react2.default.createElement('a', { className: 'mess-icon', style: { display: 'none' }, href: '#' })
+					_react2.default.createElement('a', { className: 'mess-icon', style: { display: main.icon }, href: '#' })
 				)
 			)
 		),
 		_react2.default.createElement(
 			'div',
 			{ className: 'page-1 col-12' },
-			_react2.default.createElement(_Login2.default, null),
+			_react2.default.createElement(_Login2.default, {
+				closeDialog: closeDialog,
+				handleLogin: handleLogin,
+				message: main.message,
+				dialog: main.dialog,
+				handleScroll: handleScroll
+			}),
 			_react2.default.createElement('div', { className: 'devices-img col-7' })
 		),
 		_react2.default.createElement(
@@ -26344,7 +26446,7 @@ var Main = exports.Main = function Main(_ref) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	return (0, _redux.bindActionCreators)({ signupClick: _main.signupClick, signupCancel: _main.signupCancel }, dispatch);
+	return (0, _redux.bindActionCreators)({ signupClick: _main.signupClick, signupCancel: _main.signupCancel, closeDialog: _main.closeDialog, handleLogin: _main.handleLogin, handleScroll: _main.handleScroll, handleSignup: _main.handleSignup }, dispatch);
 };
 
 var mapStatetoProps = function mapStatetoProps(state) {
@@ -26357,7 +26459,11 @@ exports.default = (0, _reactRedux.connect)(mapStatetoProps, mapDispatchToProps)(
 Main.PropTypes = {
 	main: _propTypes2.default.object.isRequired,
 	signupClick: _propTypes2.default.func.isRequired,
-	signupCancel: _propTypes2.default.func.isRequired
+	signupCancel: _propTypes2.default.func.isRequired,
+	closeDialog: _propTypes2.default.func.isRequired,
+	handleLogin: _propTypes2.default.func.isRequired,
+	handleScroll: _propTypes2.default.func.isRequired,
+	handleSignup: _propTypes2.default.func.isRequired
 };
 
 /***/ }),
@@ -26397,45 +26503,10 @@ var Signup = function (_React$Component) {
 	function Signup(props) {
 		_classCallCheck(this, Signup);
 
-		var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
-
-		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		_this.state = { display: 'none' };
-		return _this;
+		return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
 	}
 
 	_createClass(Signup, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {}
-	}, {
-		key: 'handleSubmit',
-		value: function handleSubmit(event) {
-			event.preventDefault();
-			var data = {
-				name: this.username.value,
-				email: this.email.value,
-				password: this.password.value,
-				password2: this.repassword.value
-			};
-			return new Promise(function (resolve, reject) {
-				_axios2.default.post('/api/register', data).then(function (response) {
-					return new Promise(function (resolve, reject) {
-						_axios2.default.post('/api/authenticate', { email: data.email, password: data.password }).then(function (response) {
-							localStorage.setItem("user", { name: response.name, email: response.email });
-							localStorage.setItem("access_token", response.token);
-							location.href = '/home';
-						}, function (err) {
-							console.log(err.message);
-						});
-						resolve();
-					});
-				}, function (err) {
-					console.log(err);
-				});
-				resolve();
-			});
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -26457,7 +26528,16 @@ var Signup = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'form',
-						{ onSubmit: this.handleSubmit },
+						{ onSubmit: function onSubmit(e) {
+								e.preventDefault();
+								_this2.props.handleSignup({
+									name: _this2.username.value,
+									email: _this2.email.value,
+									password: _this2.password.value,
+									password2: _this2.repassword.value
+								}, { email: _this2.email.value,
+									password: _this2.password.value });
+							} },
 						_react2.default.createElement('input', { type: 'text', ref: function ref(input) {
 								_this2.username = input;
 							}, name: 'username', placeholder: 'Username', required: true }),
@@ -27394,10 +27474,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(41);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _reactRouterDom = __webpack_require__(101);
 
 __webpack_require__(218);
@@ -27424,36 +27500,18 @@ var Login = function (_React$Component) {
 	function Login(props) {
 		_classCallCheck(this, Login);
 
-		var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
-
-		_this.handleClose = function () {
-			_this.setState({ dialog: false });
-		};
-
-		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		_this.handleClose = _this.handleClose.bind(_this);
-		_this.state = { display: 'none', dialog: false, message: '' };
-		return _this;
+		return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
 	}
 
 	_createClass(Login, [{
-		key: 'handleSubmit',
-		value: function handleSubmit(event) {
-			event.preventDefault();
-			var data_login = {
-				email: this.loginEmail.value,
-				password: this.loginPassword.value
-			};
-			_axios2.default.post('/api/authenticate', data_login).then(function (response) {
-				var res = response.data;
-				if (res.success == true) {
-					localStorage.setItem("access_token", res.token);
-					localStorage.user = JSON.stringify(res.user);
-					location.href = '/home';
-				} else {
-					this.setState({ dialog: true, message: 'The email or password is incorrect!' });
-				}
-			}).catch(function (error) {});
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			window.addEventListener('scroll', this.props.handleScroll);
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			window.removeEventListener('scroll', this.props.handleScroll);
 		}
 	}, {
 		key: 'render',
@@ -27463,7 +27521,7 @@ var Login = function (_React$Component) {
 			var actions = [_react2.default.createElement(_FlatButton2.default, {
 				label: 'OK',
 				primary: true,
-				onClick: this.handleClose
+				onClick: this.props.closeDialog
 			})];
 			return _react2.default.createElement(
 				'div',
@@ -27481,12 +27539,15 @@ var Login = function (_React$Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ onSubmit: this.handleSubmit },
+					{ onSubmit: function onSubmit(event) {
+							event.preventDefault();
+							_this2.props.handleLogin({ email: _this2.email.value, password: _this2.password.value });
+						} },
 					_react2.default.createElement('input', { type: 'email', ref: function ref(input) {
-							_this2.loginEmail = input;
+							_this2.email = input;
 						}, name: 'email', placeholder: 'Email', required: true }),
 					_react2.default.createElement('input', { type: 'password', ref: function ref(input) {
-							_this2.loginPassword = input;
+							_this2.password = input;
 						}, name: 'password', placeholder: 'Password', required: true }),
 					_react2.default.createElement(
 						'button',
@@ -27509,10 +27570,11 @@ var Login = function (_React$Component) {
 					{
 						actions: actions,
 						modal: false,
-						open: this.state.dialog,
-						onRequestClose: this.handleClose
+						open: this.props.dialog,
+						onRequestClose: this.props.closeDialog,
+						contentStyle: { width: '40%' }
 					},
-					this.state.message
+					this.props.message
 				)
 			);
 		}
