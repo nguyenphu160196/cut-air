@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
-import Main from './Main/components/Main.js';
-import Home from './Home/components/Home.jsx'
-import Feature from './Feature/components/Feature.jsx'
-import MainReducer from './Main/modules/main.js'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import Main from './Main/components/Main.js';
+import Home from './Home/components/Home.js'
+import Feature from './Feature/components/Feature.jsx'
+import MainReducer from './Main/modules/main.js'
+import HomeReducer from './Home/modules/home.js'
+
 const combine = combineReducers({
-	MainReducer
+	MainReducer,
+  HomeReducer
 })
 
 const Root = ({ store }) => (

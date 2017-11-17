@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import './login.css'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -38,6 +39,12 @@ class Login extends React.Component {
 					<input type='password' ref={(input) => {this.password = input;}} name='password' placeholder='Password' required/>
 					<button type='submit'>Đăng nhập</button>
 					<div className='remember-me'>
+						<div style={{
+								height: '40px',
+								display: this.props.block,
+								position: 'relative',
+								left: '-40px'
+						}}><CircularProgress size={40} thickness={4} /></div>
 						<input type="checkbox" id="remember-me" />
 						<label>Duy trì đăng nhập</label>
 					</div>

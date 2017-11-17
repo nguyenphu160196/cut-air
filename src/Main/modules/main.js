@@ -6,6 +6,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const CLOSE_DIALOG = 'CLOSE_DIALOG'
 export const ICON_CHANGE = 'ICON_CHANGE'
 export const SIGNUP_FAIL = 'SIGNUP_FAIL'
+export const LOGIN_PROGRESS = 'LOGIN_PROGRESS'
 
 export const handleSignup = (body,login) => {
     return (dispatch, getState) => {
@@ -61,6 +62,10 @@ export const closeDialog = () => {
 
 export const handleLogin = (body) => {
    return (dispatch, getState) => {
+    dispatch({
+        type: LOGIN_PROGRESS,
+        payload: 'block'
+    })
     axios.post('/api/authenticate', body)
     .then(function (response) {
         var res = response.data;
@@ -68,10 +73,12 @@ export const handleLogin = (body) => {
             localStorage.setItem("access_token", res.token);
             localStorage.user = JSON.stringify(res.user);
             location.href = '/home';
-        }else{
             dispatch({
-                type: LOGIN_FAIL
+                type: LOGIN_PROGRESS,
+                payload: 'none'
             })
+        }else{
+            dispatch({type: LOGIN_FAIL})
         }
     })
     .catch(function (error){
@@ -95,7 +102,8 @@ export const signupCancel = () => {
     display: 'none',
     message: '',
     dialog: false,
-    icon: 'none'
+    icon: 'none',
+    block: 'none'
  }
 
  export const MainReducer = (state = initialState, action)=>{
@@ -114,7 +122,8 @@ export const signupCancel = () => {
         return {
         ...state,
         dialog: true,
-        message: 'The email or password is incorrect!'
+        message: 'The email or password is incorrect!',
+        block: 'none'
         }
     case CLOSE_DIALOG:
         return {
@@ -131,6 +140,11 @@ export const signupCancel = () => {
         ...state,
         message: action.payload,
         dialog: true
+        }
+    case LOGIN_PROGRESS:
+        return {
+        ...state,
+        block: action.payload
         }
     default:
       return state

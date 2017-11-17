@@ -28,13 +28,6 @@ body::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,0.5);
 }
 
-.nav-bar{
-	padding: 15px 0px;
-	position: fixed;
-	z-index: 2;
-	background-color: #fff;
-}
-
 ul {
 	min-width: 900px;
     list-style-type: none;
