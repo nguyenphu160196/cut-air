@@ -1,7 +1,39 @@
+*::-webkit-scrollbar {
+	width: 1px;
+  }
+
 .home-container{
 	display: flex;
 }
 
 .chat-main{
 	display: flex;
+}
+
+.chat-control{
+	width: 20vw;
+}
+
+/*OwnAccount*/
+.user-button div div div{
+	margin-right: 15px!important;
+}
+
+.ArrowDropDown{
+	margin-left: 15px!important;
+}
+
+
+/*FriendsList*/
+.friend-list{
+	height: calc(100vh - 50px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+
+.friend-member div div{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

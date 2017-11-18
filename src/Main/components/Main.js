@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import './main.css'
 
+import Progress from '../../common/PageLoading.js'
 import Signup from '../../SignUp/components/Signup.jsx';
 import Login from '../../Login/components/Login.jsx';
 import {signupClick, signupCancel, closeDialog, handleLogin, handleScroll, handleSignup} from '../modules/main.js'
@@ -14,6 +15,7 @@ export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog,
 	} else {
 		return (
 			<div>
+				<Progress display={main.block}></Progress>
 				<Signup 
 					display={main.display}
 					onCancel={signupCancel}
@@ -34,7 +36,6 @@ export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog,
 						message={main.message}
 						dialog={main.dialog}
 						handleScroll={handleScroll}
-						block={main.block}
 					></Login>
 					<div className='devices-img col-7'></div>
 				</div>

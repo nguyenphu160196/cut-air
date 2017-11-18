@@ -12,12 +12,20 @@ export const handleSignup = (body,login) => {
     return (dispatch, getState) => {
         axios.post('/api/register',body)
 		.then(function (response){
+            dispatch({
+                type: LOGIN_PROGRESS,
+                payload: 'flex'
+            })
 			axios.post('/api/authenticate',login)
 			.then(function (response) {
 				var res = response.data;
                 localStorage.setItem("access_token", res.token);
                 localStorage.user = JSON.stringify(res.user);
-                location.href = '/home';			
+                location.href = '/home';
+                dispatch({
+                    type: LOGIN_PROGRESS,
+                    payload: 'none'
+                })			
 			})
 			.catch(function (error){
 			})
@@ -25,7 +33,7 @@ export const handleSignup = (body,login) => {
 		.catch(function (error){
             dispatch({
                 type: SIGNUP_FAIL,
-                payload: 'An Error Occurr!'
+                payload: 'An Error Occured!'
             })
 		})
     }
@@ -64,7 +72,7 @@ export const handleLogin = (body) => {
    return (dispatch, getState) => {
     dispatch({
         type: LOGIN_PROGRESS,
-        payload: 'block'
+        payload: 'flex'
     })
     axios.post('/api/authenticate', body)
     .then(function (response) {
