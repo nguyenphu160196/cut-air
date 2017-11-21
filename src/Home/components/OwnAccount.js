@@ -28,7 +28,7 @@ class OwnAccount extends React.Component {
                 className='user-button'
                 style={{
                     width: '100%',
-                    height: '50px'
+                    height: '56px'
                 }}
                 icon={<ArrowDropDown className='ArrowDropDown'/>}
                 onClick={(e) => {

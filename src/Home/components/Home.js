@@ -5,10 +5,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import {closeDialog, signOut, accSetting} from '../modules/home.js'
 
-import ListFriend from './FriendsList.js'
+import ListFriend from './FriendList.js'
 import OwnAccount from './OwnAccount.js'
+import VideoCallField from './VideocallField.js'
+import Preferences from './Preferences.js'
+import ChatInput from './ChatInput.js'
+import ChatContent from './ChatContent.js'
 
-const friend = [{name: 'Brendan Lim', avatar: ''}, {name: 'Eric Hoffman', avatar: ''}, {name: 'Grace NgGrace NgGrace NgGrace Ng', avatar: ''}, {name: 'Kerem Suer', avatar: ''}];
+const friend = [{name: 'Brendan Lim', avatar: ''}, {name: 'Eric Hoffman', avatar: ''}, {name: 'Grace Ng', avatar: ''}, {name: 'Kerem Suer', avatar: ''}];
 const message = [{user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}]
 
 export const Home = ({home, closeDialog, signOut, accSetting}) => {	
@@ -32,15 +36,26 @@ export const Home = ({home, closeDialog, signOut, accSetting}) => {
 						</div>
 					</div>
 					<div className='chat-class'>
-						<div className='videocall-field'></div>
+						<div className='videocall-field'>
+							<VideoCallField/>
+						</div>
 						<div className='chat-main'>
-							<div className='chat-field'>
-								<div className='chat-content'></div>
-								<div className='chat-input'></div>
+							<div className='chat-field' style={{
+								width: '52.5vw'
+							}}>
+								<div className='chat-content' style={{
+								height: 'calc(100vh - 148px)'
+							}}>
+									<ChatContent/>
+								</div>
+								<div className='chat-input'>
+									<ChatInput/>
+								</div>
 							</div>
-							<div className='chat-preferences'>
-								<div className='own-account-setting'></div>
-								<div className='search-friend'></div>
+							<div className='chat-preferences' style={{
+								width: '27.5vw'
+							}}>
+								<Preferences/> 
 							</div>
 						</div>
 					</div>		

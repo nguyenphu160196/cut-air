@@ -10,6 +10,11 @@
 	display: flex;
 }
 
+.chat-field{
+	display: flex;
+	flex-direction: column;
+}
+
 .chat-control{
 	width: 20vw;
 }
@@ -37,3 +42,35 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+/*VideoCallToolbar*/
+.VideoCallToolbar{
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+	width: calc(100vw - 20vw);
+	margin-left: 2px; 	
+	padding: 0px!important;
+}
+
+.VideoCallToolbar > div{
+	width: 100%!important;
+	justify-content: flex-end!important;	
+}
+
+.VideoCallToolbar > div > div{
+	margin: 10px 15px!important;	
+}
+
+.VideoCallToolbar > div > span:first-child{
+	margin: auto!important;	
+}
+
+/*ChatContent*/
+.chat-content{
+	box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 4px;
+}
+
+.chat-input{
+	box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 4px;	
+}
+
+/*Preferences*/
