@@ -15,10 +15,9 @@ import ChatContent from './ChatContent.js'
 const friend = [{name: 'Brendan Lim', avatar: ''}, {name: 'Eric Hoffman', avatar: ''}, {name: 'Grace Ng', avatar: ''}, {name: 'Kerem Suer', avatar: ''}];
 const message = [{user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}]
 
-export const Home = ({home, closeDialog, signOut, accSetting}) => {	
-	if(!localStorage['access_token']){
-		location.href = '/';
-	}else{
+export const Home = ({home, closeDialog, signOut, accSetting}) => {
+	if(localStorage['access_token'] && 
+	(JSON.parse(atob(localStorage['access_token'].split('.')[1]))).exp >= Date.now()/1000){
 		return (
 			<div>	
 				<div className='home-container'>
@@ -61,7 +60,9 @@ export const Home = ({home, closeDialog, signOut, accSetting}) => {
 					</div>		
 				</div>
 			</div>
-		);	
+		);
+	}else{
+		location.href = '/';
 	}
 }
 

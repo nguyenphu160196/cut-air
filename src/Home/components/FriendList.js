@@ -9,6 +9,7 @@ class ListFriend extends React.Component {
     render(){
         const Friend = this.props.array.map((data, i) => {
             return <ListItem
+                key={i}
                 className='friend-member'
                 primaryText={data.name}
                 leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.name.charAt(0)}</Avatar>}

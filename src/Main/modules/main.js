@@ -77,14 +77,14 @@ export const handleLogin = (body) => {
     axios.post('/api/authenticate', body)
     .then(function (response) {
         var res = response.data;
-        if(res.success == true){
+        if(res.success == true){            
             localStorage.setItem("access_token", res.token);
             localStorage.user = JSON.stringify(res.user);
             location.href = '/home';
             dispatch({
                 type: LOGIN_PROGRESS,
                 payload: 'none'
-            })
+            })            
         }else{
             dispatch({type: LOGIN_FAIL})
         }

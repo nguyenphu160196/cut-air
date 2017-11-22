@@ -6,20 +6,26 @@ import Public from 'material-ui/svg-icons/social/public';
 
 const TabsExampleIconText = () => (
     <Tabs inkBarStyle={{
-        backgroundColor: '#fff'
+        backgroundColor: 'red'
       }}
       tabItemContainerStyle={{
         background: '#0084ff'
       }}>
       <Tab
         icon={<Public/>}
-      />
+      >
+        <div>Public</div>
+      </Tab>
       <Tab
         icon={<MapsPersonPin />}
-      />
+      >
+        <div>Friend Noti</div>
+      </Tab>
       <Tab
         icon={<Setting/>}
-      />
+      >
+        <div>Setting</div>
+      </Tab>
     </Tabs>
   );
   

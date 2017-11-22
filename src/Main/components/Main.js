@@ -10,9 +10,10 @@ import Login from '../../Login/components/Login.jsx';
 import {signupClick, signupCancel, closeDialog, handleLogin, handleScroll, handleSignup} from '../modules/main.js'
 
 export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog, handleScroll, handleSignup}) => {
-	if(localStorage['access_token']){
-		location.href = '/home'
-	} else {
+	if(localStorage['access_token'] &&
+		(JSON.parse(atob(localStorage['access_token'].split('.')[1]))).exp >= Date.now()/1000){
+		location.href = '/home';
+	}else{
 		return (
 			<div>
 				<Progress display={main.block}></Progress>
@@ -96,8 +97,8 @@ export const Main = ({main, signupClick, signupCancel, handleLogin, closeDialog,
 					<p>The Facebook, Apple, Google Play, and Windows logos are trademarks of their respective owners. View our Data Policy and Terms.</p>
 				</div>
 			</div>
-			)
-	}
+		);
+	}		
 }
 
 const mapDispatchToProps = (dispatch) => {
