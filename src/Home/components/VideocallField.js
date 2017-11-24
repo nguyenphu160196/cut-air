@@ -16,9 +16,10 @@ export default class VideoCallField extends React.Component {
                 backgroundColor:"#fff"
             }}>
             <ToolbarGroup firstChild={true}>
-              <ToolbarTitle text="Options" />
-                <RaisedButton backgroundColor="#0084ff" icon={<Call color="#fff"/>} />
-                <RaisedButton backgroundColor="#0084ff" icon={<Video color="#fff"/>} />
+              <ToolbarTitle text={this.props.match ? this.props.match.params.childId : "Options"} />
+              <ToolbarSeparator />
+              <RaisedButton backgroundColor="#0084ff" icon={<Call color="#fff"/>} />
+              <RaisedButton backgroundColor="#0084ff" icon={<Video color="#fff"/>} />
             </ToolbarGroup>
           </Toolbar>
         );

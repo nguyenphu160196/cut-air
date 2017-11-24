@@ -47,4 +47,3 @@ app.use('/api/', users);
 io.on('connection', chatAPI);
 
 server.listen(port, () => console.log('Server is running on port', port));
-

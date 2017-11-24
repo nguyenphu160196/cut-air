@@ -16,7 +16,7 @@
 }
 
 .chat-control{
-	width: 20vw;
+	width: 23vw;
 }
 
 /*OwnAccount*/
@@ -43,10 +43,21 @@
 	text-overflow: ellipsis;
 }
 
+li.li-friendlist{
+	list-style: none;
+	float: unset!important;
+}
+
+li.li-friendlist a:first-child{
+	text-align: unset!important;
+	margin: 0!important;
+	padding: 0!important;
+}
+
 /*VideoCallToolbar*/
 .VideoCallToolbar{
 	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
-	width: calc(100vw - 20vw);
+	width: calc(100vw - 23vw);
 	margin-left: 2px; 	
 	padding: 0px!important;
 }
@@ -67,6 +78,7 @@
 /*ChatContent*/
 .chat-content{
 	box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 4px;
+	padding: 10px 20px;
 }
 
 .chat-input{
