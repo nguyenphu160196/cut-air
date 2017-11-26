@@ -1,9 +1,8 @@
-const app = require("express")();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-
 module.exports = (socket) => {	
-
+	// socket.join('room' + data.id);
+	socket.on("hello", data => {
+		console.log(data);
+	});
 	socket.on("disconnect", ()=>{
 		
 	});

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import {closeDialog, signOut, accSetting} from '../modules/home.js'
 import io from 'socket.io-client'
+const socket = io('http://localhost:9090');
 import {
     BrowserRouter as Router, Route
   } from 'react-router-dom'
@@ -17,12 +18,15 @@ import ChatContent from './ChatContent.js'
 import Preferences from './Preferences.js'
 
 const friend = [{id: '1',name: 'Brendan Lim', avatar: ''}, {id: '2',name: 'Eric Hoffman', avatar: ''}, {id: '3',name: 'Grace Ng', avatar: ''}, {id: '4',name: 'Kerem Suer', avatar: ''}];
-const message = [{user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {user: 'c', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}]
+const message = [{id: '12', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {id: '13', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {id: '14', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}]
 
 export class RealTime extends React.Component{
-	componentDidMount(){
-		let socket = io('http://localhost:9090');
-    }
+	constructor(props) {
+		super(props);
+      }
+	componentDidMount() {
+		
+	}  
 	render(){
 		return(
 			<div>	
@@ -37,12 +41,12 @@ export class RealTime extends React.Component{
 						/>
 					</div>
 					<div className='friends-list'>
-						<ListFriend array={friend} match={this.props.match}/>
+						<ListFriend array={friend} match={this.props.match} socket={socket}/>
 					</div>
 				</div>
 				<div className='chat-class'>
 					<div className='videocall-field'>
-							<Route path={`${this.props.match.url}/:childId`} component={VideoCallField}/>
+						<Route path={`${this.props.match.url}/:childId`} component={VideoCallField} socket={socket}/>
 					</div>
 					<div className='chat-main'>
 						<div className='chat-field' style={{

@@ -17,12 +17,19 @@ import ChatContent from './ChatContent.js'
 class ListFriend extends React.Component {
     constructor(props) {
         super(props);
+        this.socket = this.props.socket;
       }
+    componentDidMount() {
+        
+	} 
     render(match){
         const Friend = this.props.array.map((data, i) => {
             return <li className='li-friendlist' key={i}>
                 <Link to={`${this.props.match.url}/` + data.id}>
                     <ListItem
+                        onClick={() => {
+                            this.socket.emit("hello", "a");
+                        }}
                         className='friend-member'
                         primaryText={data.name}
                         leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.name.charAt(0)}</Avatar>}

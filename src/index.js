@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import {  BrowserRouter as Router, Route } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Main from './Main/components/Main.js';
@@ -21,9 +21,9 @@ const Root = ({ store }) => (
   <Provider store={store}>
     <Router>
       <div>
-          <Route exact path="/" component={Main}/>
-          <Route path="/home" component={Home} />
-          <Route path="/feature" component={Feature} />
+        <Route exact path="/" component={Main}/>
+        <Route path="/home" component={Home} />
+        <Route path="/feature" component={Feature} />
       </div>
     </Router>
   </Provider>
