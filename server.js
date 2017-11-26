@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
 const passport = require('passport');
+const history = require('connect-history-api-fallback')
 
 require('./config/passport')(passport);
 
@@ -22,9 +23,16 @@ mongoose.connect(config.database);
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+console.log("1", path.join(__dirname, '/build'));
+app.use(express.static(path.join(__dirname, '/build')));
+app.use(history({
+  index: '/'
+}));
+app.use(express.static(path.join(__dirname, '/build')));
+console.log("2", path.join(__dirname, '/build'));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'build')));
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
     let namespace = param.split('.')
@@ -42,7 +50,7 @@ app.use(expressValidator({
   }
 }));
 
-app.use('/*', index);
+app.use('/', index);
 app.use('/api/', users);
 io.on('connection', chatAPI);
 
