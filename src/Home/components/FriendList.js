@@ -26,7 +26,7 @@ class ListFriend extends React.Component {
         const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}, {id: '', avatar: '', userId:"2", message: 'ban'}]}
         const Friend = this.props.array.map((data, i) => {
             return <li className='li-friendlist' key={i}>
-                <Link to={`${this.props.match.url}/chat/` + data.id}>
+                <Link to={`${this.props.match.path}/chat/` + data.id}>
                     <ListItem
                         onClick={() => {
                             this.props.updateState("ChatName", data.name);
