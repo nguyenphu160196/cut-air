@@ -31,7 +31,7 @@ class ListFriend extends React.Component {
                         onClick={() => {
                             this.props.updateState("ChatName", data.name);
                             this.props.updateState("messageData", messageData);
-                            this.socket.emit("join-room", messageData.room);
+                            this.socket.emit("send-client", this.socket.id);
                             }
                         }
                         className='friend-member'

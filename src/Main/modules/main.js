@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { browserHistory } from 'react-router';
 
 export const SIGNUP_CLICK = 'SIGNUP_CLICK'
 export const SIGNUP_CANCEL = 'SIGNUP_CANCEL'
@@ -21,7 +22,7 @@ export const handleSignup = (body,login) => {
 				var res = response.data;
                 localStorage.setItem("access_token", res.token);
                 localStorage.user = JSON.stringify(res.user);
-                location.href = '/home';
+                browserHistory.push('/home');
                 dispatch({
                     type: LOGIN_PROGRESS,
                     payload: 'none'

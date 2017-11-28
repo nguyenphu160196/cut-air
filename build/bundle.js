@@ -9750,6 +9750,8 @@ var _axios = __webpack_require__(60);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _reactRouter = __webpack_require__(445);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SIGNUP_CLICK = exports.SIGNUP_CLICK = 'SIGNUP_CLICK';
@@ -9771,7 +9773,7 @@ var handleSignup = exports.handleSignup = function handleSignup(body, login) {
                 var res = response.data;
                 localStorage.setItem("access_token", res.token);
                 localStorage.user = JSON.stringify(res.user);
-                location.href = '/home';
+                _reactRouter.browserHistory.push('/home');
                 dispatch({
                     type: LOGIN_PROGRESS,
                     payload: 'none'
@@ -49356,7 +49358,7 @@ var ListFriend = function (_React$Component) {
                             onClick: function onClick() {
                                 _this2.props.updateState("ChatName", data.name);
                                 _this2.props.updateState("messageData", messageData);
-                                _this2.socket.emit("join-room", messageData.room);
+                                _this2.socket.emit("send-client", _this2.socket.id);
                             },
                             className: 'friend-member',
                             primaryText: data.name,
