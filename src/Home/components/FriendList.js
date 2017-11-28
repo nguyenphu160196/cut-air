@@ -20,16 +20,20 @@ class ListFriend extends React.Component {
         this.socket = this.props.socket;
       }
     componentDidMount() {
-        
+       
 	} 
     render(match){
+        const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}, {id: '', avatar: '', userId:"2", message: 'ban'}]}
         const Friend = this.props.array.map((data, i) => {
             return <li className='li-friendlist' key={i}>
-                <Link to={`${this.props.match.url}/` + data.id}>
+                <Link to={`${this.props.match.url}/chat/` + data.id}>
                     <ListItem
                         onClick={() => {
-                            this.socket.emit("hello", "a");
-                        }}
+                            this.props.updateState("ChatName", data.name);
+                            this.props.updateState("messageData", messageData);
+                            this.socket.emit("join-room", messageData.room);
+                            }
+                        }
                         className='friend-member'
                         primaryText={data.name}
                         leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.name.charAt(0)}</Avatar>}

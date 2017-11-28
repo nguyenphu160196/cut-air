@@ -3,11 +3,11 @@ import './Home.css'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import {closeDialog, signOut, accSetting} from '../modules/home.js'
+import {closeDialog, signOut, accSetting, updateState} from '../modules/home.js'
 import io from 'socket.io-client'
 const socket = io('http://localhost:9090');
 import {
-    BrowserRouter as Router, Route
+    BrowserRouter as Router, Route, Switch
   } from 'react-router-dom'
 
 import ListFriend from './FriendList.js'
@@ -16,9 +16,9 @@ import VideoCallField from './VideocallField.js'
 import ChatInput from './ChatInput.js'
 import ChatContent from './ChatContent.js'
 import Preferences from './Preferences.js'
+import NotFound from '../../common/NotFound.js'
 
 const friend = [{id: '1',name: 'Brendan Lim', avatar: ''}, {id: '2',name: 'Eric Hoffman', avatar: ''}, {id: '3',name: 'Grace Ng', avatar: ''}, {id: '4',name: 'Kerem Suer', avatar: ''}];
-const message = [{id: '12', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {id: '13', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}, {id: '14', avatar: '', message: 'qwertyuiop[asdfghjklzxcvbnm'}]
 
 export class RealTime extends React.Component{
 	constructor(props) {
@@ -41,12 +41,19 @@ export class RealTime extends React.Component{
 						/>
 					</div>
 					<div className='friends-list'>
-						<ListFriend array={friend} match={this.props.match} socket={socket}/>
+						<ListFriend 
+							array={friend}
+							match={this.props.match}
+							socket={socket}
+							updateState={this.props.updateState}	
+						/>
 					</div>
 				</div>
 				<div className='chat-class'>
 					<div className='videocall-field'>
-						<Route path={`${this.props.match.url}/:childId`} component={VideoCallField} socket={socket}/>
+						<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => (
+							<VideoCallField {...props} state={this.props.home} socket={socket} />
+						)}/>					
 					</div>
 					<div className='chat-main'>
 						<div className='chat-field' style={{
@@ -55,10 +62,31 @@ export class RealTime extends React.Component{
 							<div className='chat-content' style={{
 							height: 'calc(100vh - 148px)'
 						}}>
-								<Route path={`${this.props.match.url}/:childId`} component={ChatContent}/>
+							<Switch>
+								<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => (
+									<ChatContent {...props} state={this.props.home} socket={socket} />
+								)}/>
+								<Route exact path={this.props.match.url} render={() => (
+									<div className='WellcomeBack'>
+										<div className='WellcomeBack-txt'>Welcome Back!</div>		
+										<div className='wcb-intro'>	
+											<div className='wcb-intro-img'></div>
+											<div className='wcb-intro-txt'>
+												<h1>Introducing video calling in "Cut Air".</h1>
+												<p>Now you can have face-to-face conversations with friends and family. It’s fast and easy to make video calls anywhere in the world.</p>
+											</div>
+										</div>				
+									</div>
+								)}/>
+								<Route component={NotFound}/>
+							</Switch>
 							</div>
 							<div className='chat-input'>
-								<Route path={`${this.props.match.url}/:childId`} component={ChatInput}/>
+								<Switch>
+									<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => (
+										<ChatInput {...props} state={this.props.home} socket={socket} />
+									)}/>
+								</Switch>
 							</div>
 						</div>
 						{/* <div className='chat-preferences' style={{
@@ -74,7 +102,7 @@ export class RealTime extends React.Component{
 	}
 }
 
-export const Home = ({home, closeDialog, signOut, accSetting, match}) => {
+export const Home = ({home, closeDialog, signOut, accSetting, updateState, match}) => {
 	if(localStorage['access_token'] && 
 	(JSON.parse(atob(localStorage['access_token'].split('.')[1]))).exp >= Date.now()/1000){
 		return (
@@ -85,6 +113,7 @@ export const Home = ({home, closeDialog, signOut, accSetting, match}) => {
 					closeDialog={closeDialog}
 					signOut={signOut}
 					accSetting={accSetting}
+					updateState={updateState}
 				/>
 			</div>
 		);
@@ -94,7 +123,7 @@ export const Home = ({home, closeDialog, signOut, accSetting, match}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({closeDialog, signOut, accSetting}, dispatch);
+	return bindActionCreators({closeDialog, signOut, accSetting, updateState}, dispatch);
 }
 
 const mapStatetoProps = (state)=>{
@@ -107,5 +136,6 @@ Home.PropTypes = {
 	home: PropTypes.object.isRequired,
 	closeDialog: PropTypes.func.isRequired,
 	signOut: PropTypes.func.isRequired,
-	accSetting: PropTypes.func.isRequired
+	accSetting: PropTypes.func.isRequired,
+	updateState: PropTypes.func.isRequired
 }

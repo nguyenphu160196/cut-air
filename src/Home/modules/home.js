@@ -3,6 +3,15 @@ import axios from 'axios'
 export const CLOSE_DIALOG = 'CLOSE_DIALOG'
 export const SIGN_OUT = 'SIGN_OUT'
 export const ACC_SETTING = 'ACC_SETTING'
+export const UPDATE_STATE = 'UPDATE_STATE'
+
+export const updateState = (key, value) => {
+    return {
+        type: UPDATE_STATE,
+        payload: value,
+        key
+    }
+}
 
 export const closeDialog = () => {
     return {
@@ -44,6 +53,11 @@ const initialState = {
         return {
         ...state,
         acc_set: action.payload
+        }
+    case UPDATE_STATE:
+        return {
+        ...state,
+        [action.key] : action.payload
         }
     default:
       return state

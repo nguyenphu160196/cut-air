@@ -19,6 +19,72 @@
 	width: 23vw;
 }
 
+.WellcomeBack{
+	background-color: rgb(0, 132, 255);
+	width: 100%;
+	padding: 20px;
+}
+
+.WellcomeBack-txt{
+	color: #fff;
+	font-size: 72px;
+	font-family: Helvetica!important;
+	text-indent: 50px;
+}
+
+.wcb-intro{
+	background-color: #0084ff;
+	display: flex;
+	justify-content: space-around;
+	max-height: 500px;
+	margin: 50px 0px;
+}
+.wcb-intro-img{
+	background-image: url('../assets/VIDEOCALLS.png');
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	min-width: 300px;
+	min-height: 420px;
+}
+.wcb-intro-txt{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	max-width: 340.25px;
+	min-width: 300px;
+}
+
+.wcb-intro-txt h1{
+	margin: 0px 0px 10px 0px;
+	font-weight: normal;
+	font-family: Helvetica;
+	font-size: 38px;
+	color: #fff;
+}
+.wcb-intro-txt p{
+	margin: 0px 0px 10px 0px;
+	font-weight: normal;
+	font-family: Helvetica;
+	font-size: 17px;
+	color: #d4e4ff;
+	line-height: 24px;
+}
+.wcb-intro a{
+	margin-top: 8px;
+	background-color: #2998ff;
+	height: 32px;
+	font-size: 12px;
+	font-family: Helvetica;
+	padding: 0px 24px;
+	color: #fff; 
+	text-decoration: none;
+	font-weight: 600;
+	align-self: flex-start;
+	line-height: 32px;
+	border-radius: 3px;
+}
+
 /*OwnAccount*/
 .user-button div div div{
 	margin-right: 15px!important;
@@ -79,10 +145,38 @@ li.li-friendlist a:first-child{
 .chat-content{
 	box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 4px;
 	padding: 10px 20px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 .chat-input{
 	box-shadow: rgba(0, 0, 0, 0.12) 2px 2px 4px;	
+}
+
+.MessageContent{
+	min-height: 40px;
+}
+
+.friendMessage{
+	border-radius: 20px;
+	padding: 10px 15px;
+	font-family: Helvetica;
+	color: #000;
+	background-color: #f1f0f0;
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.OwnMessage{
+	border-radius: 20px;
+	padding: 10px 15px;
+	font-family: Helvetica;
+	color: #fff;
+	background-color: rgb(0, 132, 255);
+    max-width: 60%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
 }
 
 /*Preferences*/

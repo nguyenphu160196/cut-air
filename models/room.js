@@ -12,7 +12,7 @@ const roomSchema = new Schema({
       ref: 'user'
     },
     message: String,
-    createAt: Date
+    createAt: String
   }]
 });
 
