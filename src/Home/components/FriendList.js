@@ -18,29 +18,33 @@ class ListFriend extends React.Component {
     constructor(props) {
         super(props);
         this.socket = this.props.socket;
+        this.state = {list: []}
       }
     componentDidMount() {
-       
+        this.socket.on("friend-list", data => {
+           this.setState({list: data});
+       })
 	} 
     render(match){
-        const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}, {id: '', avatar: '', userId:"2", message: 'ban'}]}
-        const Friend = this.props.array.map((data, i) => {
-            return <li className='li-friendlist' key={i}>
-                <Link to={`${this.props.match.path}/chat/` + data.id}>
+        const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}]}
+        const Friend = this.state.list.map((data, i) => {
+            if(data.user.id != JSON.parse(localStorage['user']).id){
+                return <li className='li-friendlist' key={i}>
+                <Link to={`${this.props.match.path}/chat/` + data.user.id}>
                     <ListItem
                         onClick={() => {
-                            this.props.updateState("ChatName", data.name);
+                            this.props.updateState("ChatName", data.user.name);
                             this.props.updateState("messageData", messageData);
-                            this.socket.emit("send-client", this.socket.id);
-                            }
-                        }
+                            this.props.updateState("socketId", data.id);
+                        }}
                         className='friend-member'
-                        primaryText={data.name}
-                        leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.name.charAt(0)}</Avatar>}
+                        primaryText={data.user.name}
+                        leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.user.name.charAt(0)}</Avatar>}
                         rightIcon={<ChatBubble color='#0084ff'/>}>
                     </ListItem>
                 </Link>
             </li>
+            }
         });
         return (
             <div className='friend-list'>

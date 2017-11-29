@@ -18,7 +18,7 @@ export default class VideoCallField extends React.Component {
                 backgroundColor:"#fff"
             }}>
             <ToolbarGroup firstChild={true}>
-              <ToolbarTitle text={this.props.state.ChatName ? this.props.state.ChatName : "Username"} />
+              <ToolbarTitle text={this.props.state.ChatName ? this.props.state.ChatName : ""} />
               <ToolbarSeparator />
               <RaisedButton backgroundColor="#0084ff" icon={<Call color="#fff"/>} />
               <RaisedButton backgroundColor="#0084ff" icon={<Video color="#fff"/>} />

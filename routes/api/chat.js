@@ -6,14 +6,22 @@ const io = require('socket.io')(server);
 const client = [];
 
 module.exports = (socket) => {	
-	console.log(socket.id + "is online");
 	socket.on("send-client", data => {
-		// socket.join(data);
+		client.push({id: socket.id, user: data});
+		socket.emit("friend-list", client);
+		socket.broadcast.emit("friend-list", client);
 	});
 	socket.on("send-message", data => {
-		// io.in(data.room).emit("sent-message",data.message);
-	});
+		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
+		socket.emit("recieve-message", {userId: data.userId,text: data.text});
+	})
 	socket.on("disconnect", ()=>{
-		
+		client.map((data, i) => {
+			if(data.id == socket.id){
+				client.splice(i,1);			
+			}
+		})
+		socket.emit("friend-list", client);
+		socket.broadcast.emit("friend-list", client);
 	});
 }

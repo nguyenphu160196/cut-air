@@ -11,32 +11,42 @@ export const LOGIN_PROGRESS = 'LOGIN_PROGRESS'
 
 export const handleSignup = (body,login) => {
     return (dispatch, getState) => {
-        axios.post('/api/register',body)
-		.then(function (response){
-            dispatch({
-                type: LOGIN_PROGRESS,
-                payload: 'flex'
-            })
-			axios.post('/api/authenticate',login)
-			.then(function (response) {
-				var res = response.data;
-                localStorage.setItem("access_token", res.token);
-                localStorage.user = JSON.stringify(res.user);
-                browserHistory.push('/home');
+        if(body.password == body.password2){
+            axios.post('/api/register',body)
+            .then(function (response){
                 dispatch({
                     type: LOGIN_PROGRESS,
-                    payload: 'none'
-                })			
-			})
-			.catch(function (error){
-			})
-		})
-		.catch(function (error){
+                    payload: 'flex'
+                })
+                axios.post('/api/authenticate',login)
+                .then(function (response) {
+                    var res = response.data;
+                    localStorage.setItem("access_token", res.token);
+                    localStorage.user = JSON.stringify(res.user);
+                    dispatch({
+                        type: LOGIN_PROGRESS,
+                        payload: 'none'
+                    })	
+                    dispatch({
+                        type: SIGNUP_CANCEL
+                    })		
+                    location.href = '/home';
+                })
+                .catch(function (error){
+                })
+            })
+            .catch(function (error){
+                dispatch({
+                    type: SIGNUP_FAIL,
+                    payload: 'An Error Occured!'
+                })
+            })
+        }else{
             dispatch({
                 type: SIGNUP_FAIL,
-                payload: 'An Error Occured!'
+                payload: 'The password does not match!'
             })
-		})
+        }
     }
 }
 
