@@ -36,6 +36,7 @@ class ListFriend extends React.Component {
                             this.props.updateState("ChatName", data.user.name);
                             this.props.updateState("messageData", messageData);
                             this.props.updateState("socketId", data.id);
+                            this.props.updateState("peerId", data.user.id);
                         }}
                         className='friend-member'
                         primaryText={data.user.name}

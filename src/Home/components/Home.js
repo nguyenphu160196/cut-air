@@ -17,6 +17,7 @@ import ChatInput from './ChatInput.js'
 import ChatContent from './ChatContent.js'
 import Preferences from './Preferences.js'
 import NotFound from '../../common/NotFound.js'
+import Stream from './Stream.js';
 
 export class RealTime extends React.Component{
 	constructor(props) {
@@ -51,7 +52,11 @@ export class RealTime extends React.Component{
 				<div className='chat-class'>
 					<div className='videocall-field'>
 						<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => (
-							<VideoCallField {...props} state={this.props.home} socket={socket} />
+							<VideoCallField 
+								{...props} 
+								state={this.props.home} 
+								socket={socket} 
+							/>
 						)}/>					
 					</div>
 					<div className='chat-main'>
@@ -82,6 +87,14 @@ export class RealTime extends React.Component{
 										</div>				
 									</div>
 								)}/>
+								<Route path={`${this.props.match.url}/call/:childId`} render={(props) => (
+									<Stream 
+										{...props} 
+										state={this.props.home} 
+										socket={socket} 
+										updateState={this.props.updateState}
+									/>
+								)}/>
 								<Route component={NotFound}/>
 							</Switch>
 							</div>
@@ -95,6 +108,7 @@ export class RealTime extends React.Component{
 													this.props.updateState("ChatName", data.user.name);
 													this.props.updateState("messageData", messageData);
 													this.props.updateState("socketId", data.id);
+													this.props.updateState("peerId", data.user.id);
 												}
 											})
 										})	
