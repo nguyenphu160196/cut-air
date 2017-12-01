@@ -3,7 +3,7 @@ import './Home.css'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-import {closeDialog, signOut, accSetting, updateState} from '../modules/home.js'
+import {closeDialog, signOut, accSetting, updateState, call} from '../modules/home.js'
 import io from 'socket.io-client'
 const socket = io('http://localhost:9090');
 import {
@@ -17,6 +17,8 @@ import ChatInput from './ChatInput.js'
 import ChatContent from './ChatContent.js'
 import Preferences from './Preferences.js'
 import NotFound from '../../common/NotFound.js'
+import CallDialog from '../../common/CallDialog.js'
+import AnswerDialog from '../../common/AnswerDialog.js'
 import Stream from './Stream.js';
 
 export class RealTime extends React.Component{
@@ -26,6 +28,13 @@ export class RealTime extends React.Component{
 	  }
 	componentDidMount() {
 		socket.emit("send-client", JSON.parse(localStorage['user']));
+		socket.on("answer", data => {
+			this.props.updateState("dialogx", data.dialog);
+			this.props.updateState("messagex", this.props.home.ChatName + " is calling you");
+		})
+		socket.on("access", data => {
+			this.props.updateState("dialog", data);
+		})
 	}  
 	render(){
 		return(
@@ -56,6 +65,8 @@ export class RealTime extends React.Component{
 								{...props} 
 								state={this.props.home} 
 								socket={socket} 
+								call={this.props.call}
+								updateState={updateState}
 							/>
 						)}/>					
 					</div>
@@ -136,7 +147,7 @@ export class RealTime extends React.Component{
 	}
 }
 
-export const Home = ({home, closeDialog, signOut, accSetting, updateState, match}) => {
+export const Home = ({home, closeDialog, signOut, accSetting, updateState, match, call}) => {
 	if(localStorage['access_token'] && 
 	(JSON.parse(atob(localStorage['access_token'].split('.')[1]))).exp >= Date.now()/1000){
 		return (
@@ -148,6 +159,16 @@ export const Home = ({home, closeDialog, signOut, accSetting, updateState, match
 					signOut={signOut}
 					accSetting={accSetting}
 					updateState={updateState}
+					call={call}
+				/>
+				<CallDialog dialog={home.dialog} message={home.message} />
+				<AnswerDialog 
+					dialog={home.dialogx ? home.dialogx : false} 
+					closeDialog={closeDialog} 
+					message={home.messagex ? home.messagex : ""}
+					peerId={home.peerId ? home.peerId : ""}
+					socket={socket}
+					state={home}
 				/>
 			</div>
 		);
@@ -157,7 +178,7 @@ export const Home = ({home, closeDialog, signOut, accSetting, updateState, match
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({closeDialog, signOut, accSetting, updateState}, dispatch);
+	return bindActionCreators({closeDialog, signOut, accSetting, updateState, call}, dispatch);
 }
 
 const mapStatetoProps = (state)=>{
@@ -171,5 +192,6 @@ Home.PropTypes = {
 	closeDialog: PropTypes.func.isRequired,
 	signOut: PropTypes.func.isRequired,
 	accSetting: PropTypes.func.isRequired,
-	updateState: PropTypes.func.isRequired
+	updateState: PropTypes.func.isRequired,
+	call: PropTypes.func.isRequired
 }

@@ -15,6 +15,12 @@ module.exports = (socket) => {
 		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
 		socket.emit("recieve-message", {userId: data.userId,text: data.text});
 	})
+	socket.on("calling", data => {
+		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog});
+	})
+	socket.on("answered", data => {
+		socket.broadcast.to(data.id).emit("access", data.dialog);
+	})
 	socket.on("disconnect", ()=>{
 		client.map((data, i) => {
 			if(data.id == socket.id){

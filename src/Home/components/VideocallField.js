@@ -10,6 +10,7 @@ import {
   Link
 } from 'react-router-dom'
 import Peer from 'peerjs'; 
+
 var peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id", {key: '74pu89sk3ce4s4i'}); 
 
 export default class VideoCallField extends React.Component {
@@ -21,8 +22,11 @@ export default class VideoCallField extends React.Component {
         this.peerConnect = this.peerConnect.bind(this);
       }
       componentDidMount(){
-        
+        this.props.socket.on("access", data => {
+          
+        })
         peer.on('call', call=>{
+          console.log(call);
           this.openStream().then(stream=>{
             call.answer(stream);
             this.playStream('localStream', stream);
@@ -48,6 +52,8 @@ export default class VideoCallField extends React.Component {
           const call = peer.call(this.props.state.peerId, stream);
           call.on('stream', remoteStream=> this.playStream('remoteStream',remoteStream));
         });
+        this.props.socket.emit("calling", {id: this.props.state.socketId, user: this.props.state.ChatName , dialog: true});
+        this.props.call(this.props.state.ChatName);
       }
 
       render() {
