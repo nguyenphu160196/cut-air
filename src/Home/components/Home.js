@@ -8,7 +8,7 @@ import io from 'socket.io-client'
 const socket = io('http://localhost:9090');
 import {
     BrowserRouter as Router, Route, Switch
-  } from 'react-router-dom'
+} from 'react-router-dom'
 
 import ListFriend from './FriendList.js'
 import OwnAccount from './OwnAccount.js'

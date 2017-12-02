@@ -11,10 +11,13 @@ module.exports = (socket) => {
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
 	});
+	
 	socket.on("send-message", data => {
+		console.log("send-message:", data);
 		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
 		socket.emit("recieve-message", {userId: data.userId,text: data.text});
-	})
+	});
+
 	socket.on("disconnect", ()=>{
 		client.map((data, i) => {
 			if(data.id == socket.id){
