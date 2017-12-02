@@ -23,7 +23,11 @@ export default class VideoCallField extends React.Component {
       }
       componentDidMount(){
         this.props.socket.on("access", data => {
-          
+          this.openStream().then(stream => {
+            this.playStream('localStream', stream);
+            const call = peer.call(this.props.state.peerId, stream);
+            call.on('stream', remoteStream => this.playStream('remoteStream',remoteStream));
+          });
         })
         peer.on('call', call=>{
           console.log(call);
@@ -47,11 +51,6 @@ export default class VideoCallField extends React.Component {
       };
 
       peerConnect(){     
-        this.openStream().then(stream => {
-          this.playStream('localStream', stream);
-          const call = peer.call(this.props.state.peerId, stream);
-          call.on('stream', remoteStream=> this.playStream('remoteStream',remoteStream));
-        });
         this.props.socket.emit("calling", {id: this.props.state.socketId, user: this.props.state.ChatName , dialog: true});
         this.props.call(this.props.state.ChatName);
       }
