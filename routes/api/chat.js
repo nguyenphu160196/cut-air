@@ -42,25 +42,37 @@ module.exports = (socket) => {
 		})
 
 		newMessage.save()
-			.then(user => {
-				console.log("USER:" ,user);
-				socket.broadcast.to(data.socketId).emit("recieve-message", {
-					userId: user.from, 
-					text: user.text
-				});
-				socket.emit("recieve-message", {
-					userId: user.from,
-					text: user.text,
-					errors: null
-				});
+			.then(message => {
+				Message.findOne({_id: message._id})
+					.populate("from")
+					.populate("to")
+					.then(message => {
+						console.log("USER:" ,message);
+						socket.broadcast.to(data.socketId).emit("recieve-message", {
+							userId: message.from, 
+							text: message.text
+						});
+						socket.emit("recieve-message", {
+							userId: message.from,
+							text: message.text,
+							errors: null
+						});
+					})
+					.catch(err => {
+						socket.emit("recieve-message", {
+							userId: message.from,
+							text: null,
+							errors: err
+						});
+					});
 			})
 			.catch(err => {
 				socket.emit("recieve-message", {
-					userId: user.from,
+					userId: message.from,
 					text: null,
 					errors: err
 				});
-			})
+			});
 	})
 	socket.on("calling", data => {
 		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog});
