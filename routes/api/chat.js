@@ -14,11 +14,23 @@ module.exports = (socket) => {
 	});
 	//load tin nhắn
 	socket.on("send-id", data => {
-		
+		Message.find({
+			$or: [{
+				from: data.ownId,
+				to: data.friendId
+			}, {
+				from: data.friendId,
+				to: data.ownId
+			}]
+		})
+		.then(results => {
+			socket.emit("previous-message", results);
+		})
+		.catch(error => {
+			socket.emit("previous-message", error);
+		})
 	})
 	socket.on("send-message", data => {
-		console.log("send-message:", data);
-
 		let newMessage = new Message({
 			from: data.ownId,
 			to: data.userId,
