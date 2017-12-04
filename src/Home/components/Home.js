@@ -116,14 +116,13 @@ export class RealTime extends React.Component{
 							<div className='chat-input'>
 								<Switch>
 									<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => {
-										const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}]}
 										socket.on("friend-list", array => {
 											array.map(data => {
 												if(data.user.id == props.match.params.childId){
 													this.props.updateState("ChatName", data.user.name);
 													this.props.updateState("socketId", data.id);
 													this.props.updateState("peerId", data.user.id);
-													this.props.socket.emit("send-id", {ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id});
+													socket.emit("send-id", {ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id});
 												}
 											})
 										})	

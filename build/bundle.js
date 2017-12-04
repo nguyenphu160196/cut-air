@@ -48174,14 +48174,13 @@ var RealTime = exports.RealTime = function (_React$Component) {
 										_reactRouterDom.Switch,
 										null,
 										_react2.default.createElement(_reactRouterDom.Route, { path: this.props.match.url + '/chat/:childId', render: function render(props) {
-												var messageData = { room: "a", message: [{ id: '', avatar: '', userId: "1", message: 'minh' }] };
 												socket.on("friend-list", function (array) {
 													array.map(function (data) {
 														if (data.user.id == props.match.params.childId) {
 															_this3.props.updateState("ChatName", data.user.name);
 															_this3.props.updateState("socketId", data.id);
 															_this3.props.updateState("peerId", data.user.id);
-															_this3.props.socket.emit("send-id", { ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id });
+															socket.emit("send-id", { ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id });
 														}
 													});
 												});
