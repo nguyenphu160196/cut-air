@@ -10,8 +10,8 @@ const messageSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'user'
 	},
-    message: String,
+    text: String,
     createAt: String
 });
 
-module.exports = mongoose.model('message', roomSchema);
+module.exports = mongoose.model('message', messageSchema);

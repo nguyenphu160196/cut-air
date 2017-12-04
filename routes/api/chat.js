@@ -12,11 +12,39 @@ module.exports = (socket) => {
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
 	});
-	
+	//load tin nhắn
+	socket.on("send-id", data => {
+		
+	})
 	socket.on("send-message", data => {
 		console.log("send-message:", data);
-		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
-		socket.emit("recieve-message", {userId: data.userId,text: data.text});
+
+		let newMessage = new Message({
+			from: data.ownId,
+			to: data.userId,
+			text: data.text,
+			createAt: Date.now()
+		})
+
+		newMessage.save()
+			.then(user => {
+				socket.broadcast.to(data.socketId).emit("recieve-message", {
+					userId: user.to, 
+					text: data.text
+				});
+				socket.emit("recieve-message", {
+					userId: user.from,
+					text: data.text,
+					errors: null
+				});
+			})
+			.catch(err => {
+				socket.emit("recieve-message", {
+					userId: user.from,
+					text: null,
+					errors: err
+				});
+			})
 	})
 	socket.on("calling", data => {
 		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog});
