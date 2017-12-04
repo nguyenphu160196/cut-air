@@ -17,7 +17,9 @@ module.exports = (socket) => {
 	})
 	socket.on("send-message", data => {
 		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
+		socket.broadcast.to(data.socketId).emit("set-flag", 'flag');
 		socket.emit("recieve-message", {userId: data.userId,text: data.text});
+		console.log(data);
 	})
 	socket.on("calling", data => {
 		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog});

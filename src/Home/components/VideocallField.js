@@ -30,7 +30,6 @@ export default class VideoCallField extends React.Component {
           });
         })
         peer.on('call', call=>{
-          console.log(call);
           this.openStream().then(stream=>{
             call.answer(stream);
             this.playStream('localStream', stream);
