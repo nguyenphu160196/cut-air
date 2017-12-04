@@ -28,9 +28,13 @@ export class RealTime extends React.Component{
 	  }
 	componentDidMount() {
 		socket.emit("send-client", JSON.parse(localStorage['user']));
+		socket.on("previous-message", data => {
+            this.props.updateState("messageData", data)
+        })
 		socket.on("answer", data => {
 			this.props.updateState("dialogx", data.dialog);
-			this.props.updateState("messagex", this.props.home.ChatName + " is calling you");
+			this.props.updateState("messagex", data.caller + " is calling you");
+			this.props.updateState("callroute", data.callerId);			
 		})
 		socket.on("access", data => {
 			this.props.updateState("dialog", data);
@@ -117,9 +121,9 @@ export class RealTime extends React.Component{
 											array.map(data => {
 												if(data.user.id == props.match.params.childId){
 													this.props.updateState("ChatName", data.user.name);
-													this.props.updateState("messageData", messageData);
 													this.props.updateState("socketId", data.id);
 													this.props.updateState("peerId", data.user.id);
+													this.props.socket.emit("send-id", {ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id});
 												}
 											})
 										})	
@@ -166,7 +170,7 @@ export const Home = ({home, closeDialog, signOut, accSetting, updateState, match
 					dialog={home.dialogx ? home.dialogx : false} 
 					closeDialog={closeDialog} 
 					message={home.messagex ? home.messagex : ""}
-					peerId={home.peerId ? home.peerId : ""}
+					peerId={home.callroute ? home.callroute : ""}
 					socket={socket}
 					state={home}
 				/>

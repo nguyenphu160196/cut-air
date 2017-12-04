@@ -50,7 +50,7 @@ export default class VideoCallField extends React.Component {
       };
 
       peerConnect(){     
-        this.props.socket.emit("calling", {id: this.props.state.socketId, user: this.props.state.ChatName , dialog: true});
+        this.props.socket.emit("calling", {id: this.props.state.socketId, user: this.props.state.ChatName , dialog: true, caller: JSON.parse(localStorage['user']).name, callerId: JSON.parse(localStorage['user']).id});
         this.props.call(this.props.state.ChatName);
       }
 

@@ -26,7 +26,7 @@ module.exports = (socket) => {
 		.populate("from")
 		.populate("to")
 		.then(results => {
-			console.log("RESULTS: ", results);
+			// console.log("RESULTS: ", results);
 			socket.emit("previous-message", results);
 		})
 		.catch(error => {
@@ -43,7 +43,7 @@ module.exports = (socket) => {
 
 		newMessage.save()
 			.then(user => {
-				console.log("USER:" ,user);
+				// console.log("USER:" ,user);
 				socket.broadcast.to(data.socketId).emit("recieve-message", {
 					userId: user.from, 
 					text: user.text
@@ -63,7 +63,7 @@ module.exports = (socket) => {
 			})
 	})
 	socket.on("calling", data => {
-		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog});
+		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog, caller: data.caller, callerId: data.callerId});
 	})
 	socket.on("answered", data => {
 		socket.broadcast.to(data.id).emit("access", data.dialog);

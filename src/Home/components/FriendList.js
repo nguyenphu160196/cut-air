@@ -22,15 +22,14 @@ class ListFriend extends React.Component {
       }
     componentDidMount() {
         this.props.updateState("flag", "");
-        this.socket.on("friend-list", data => {
+        this.props.socket.on("friend-list", data => {
            this.setState({list: data});
        })
-       this.socket.on("set-flag", data => {
+       this.props.socket.on("set-flag", data => {
            this.props.updateState("flag", 'null');
        })
 	} 
     render(match){
-        const messageData = {room: "a", message: [{id: '', avatar: '', userId:"1", message: 'minh'}]}
         const Friend = this.state.list.map((data, i) => {
             if(data.user.id != JSON.parse(localStorage['user']).id){
                 return <li className='li-friendlist' key={i}>
@@ -38,7 +37,6 @@ class ListFriend extends React.Component {
                     <ListItem
                         onClick={() => {
                             this.props.updateState("ChatName", data.user.name);
-                            this.props.updateState("messageData", messageData);
                             this.props.updateState("socketId", data.id);
                             this.props.updateState("peerId", data.user.id);
                             this.props.updateState("flag", "");        
