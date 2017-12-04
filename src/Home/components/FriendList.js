@@ -21,8 +21,12 @@ class ListFriend extends React.Component {
         this.state = {list: []}
       }
     componentDidMount() {
+        this.props.updateState("flag", "");
         this.socket.on("friend-list", data => {
            this.setState({list: data});
+       })
+       this.socket.on("recieve-message", data => {
+           this.props.updateState("flag", 'null');
        })
 	} 
     render(match){
@@ -37,11 +41,12 @@ class ListFriend extends React.Component {
                             this.props.updateState("messageData", messageData);
                             this.props.updateState("socketId", data.id);
                             this.props.updateState("peerId", data.user.id);
+                            this.props.updateState("flag", "");        
                         }}
                         className='friend-member'
                         primaryText={data.user.name}
                         leftAvatar={<Avatar src={data && data.avatar ? data.avatar : ""}>{data && data.avatar ? "" : data.user.name.charAt(0)}</Avatar>}
-                        rightIcon={<ChatBubble color='#0084ff'/>}>
+                        rightIcon={this.props.state.flag != '' ? <ChatBubble color='#0084ff'/> : <ChatBubble color='#fff'/>}>
                     </ListItem>
                 </Link>
             </li>

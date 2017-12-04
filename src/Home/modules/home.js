@@ -4,13 +4,14 @@ export const CLOSE_DIALOG = 'CLOSE_DIALOG'
 export const SIGN_OUT = 'SIGN_OUT'
 export const ACC_SETTING = 'ACC_SETTING'
 export const UPDATE_STATE = 'UPDATE_STATE'
-export const ANSWER = 'ANSWER'
+export const CALL = 'CALL'
 
-export const anSwer = () => {
+export const call = (person) => {
     return (dispatch, getState) => {
         dispatch({
-            type: ANSWER,
-            payload: 'true'
+            type: CALL,
+            payload: true,
+            message: 'Calling to ' + person + "..."
         })
     }
 }
@@ -44,7 +45,9 @@ export const signOut = () => {
 
 const initialState = {
     dialog: false,
-    acc_set: false
+    acc_set: false,
+    message: "",
+    dialogx: false
  }
 
  export const HomeReducer = (state = initialState, action)=>{
@@ -53,7 +56,8 @@ const initialState = {
         return {
         ...state,
         dialog: action.payload,
-        acc_set: action.payload
+        acc_set: action.payload,
+        dialogx: action.payload
         }
     case SIGN_OUT:
         return {
@@ -69,7 +73,12 @@ const initialState = {
         ...state,
         [action.key] : action.payload
         }
-
+    case CALL:
+        return {
+        ...state,
+        dialog : action.payload,
+        message : action.message
+        }
     default:
       return state
    }

@@ -6,10 +6,14 @@ export default class ChatInput extends React.Component{
         super(props);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.textChange = this.textChange.bind(this);
+        this.inputFocus = this.inputFocus.bind(this);
         this.state = {text: '', userId: JSON.parse(localStorage['user']).id}
       }
     componentDidMount(){
 
+    }
+    inputFocus(){
+        this.props.updateState("flag", "");        
     }
     textChange(e){
         this.setState({text: e.target.value})
@@ -29,6 +33,7 @@ export default class ChatInput extends React.Component{
             value={this.state.text}
             onChange={this.textChange}
             onKeyPress={this.handleKeyPress}
+            onFocus={this.inputFocus}
             style={{
                 width: '100%'
             }}
