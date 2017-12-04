@@ -23,7 +23,10 @@ module.exports = (socket) => {
 				to: data.ownId
 			}]
 		})
+		.populate("from")
+		.populate("to")
 		.then(results => {
+			console.log("RESULTS: ", results);
 			socket.emit("previous-message", results);
 		})
 		.catch(error => {
