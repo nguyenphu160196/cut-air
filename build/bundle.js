@@ -13667,7 +13667,6 @@ var VideoCallField = function (_React$Component) {
         });
       });
       peer.on('call', function (call) {
-        console.log(call);
         _this2.openStream().then(function (stream) {
           call.answer(stream);
           _this2.playStream('localStream', stream);
@@ -14728,7 +14727,7 @@ var ChatInput = function (_React$Component) {
         value: function handleKeyPress(e) {
             if (e.charCode == 13 && !e.nativeEvent.shiftKey) {
                 if (this.state.text != "") {
-                    this.props.socket.emit('send-message', { socketId: this.props.state.socketId, userId: this.state.userId, text: this.state.text, ownId: JSON.parse(localStorage['user']).id });
+                    this.props.socket.emit('send-message', { socketId: this.props.state.socketId, userId: this.state.userId, text: this.state.text, ownId: this.props.state.peerId });
                     this.setState({ text: '' });
                     e.preventDefault();
                 }
@@ -52734,7 +52733,7 @@ var ListFriend = function (_React$Component) {
             this.socket.on("friend-list", function (data) {
                 _this2.setState({ list: data });
             });
-            this.socket.on("recieve-message", function (data) {
+            this.socket.on("set-flag", function (data) {
                 _this2.props.updateState("flag", 'null');
             });
         }

@@ -28,13 +28,14 @@ module.exports = (socket) => {
 
 		newMessage.save()
 			.then(user => {
+				console.log("USER:" ,user);
 				socket.broadcast.to(data.socketId).emit("recieve-message", {
 					userId: user.to, 
-					text: data.text
+					text: user.text
 				});
 				socket.emit("recieve-message", {
 					userId: user.from,
-					text: data.text,
+					text: user.text,
 					errors: null
 				});
 			})

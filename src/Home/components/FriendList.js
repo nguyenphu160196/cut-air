@@ -25,7 +25,7 @@ class ListFriend extends React.Component {
         this.socket.on("friend-list", data => {
            this.setState({list: data});
        })
-       this.socket.on("recieve-message", data => {
+       this.socket.on("set-flag", data => {
            this.props.updateState("flag", 'null');
        })
 	} 
