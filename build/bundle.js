@@ -14579,7 +14579,7 @@ var ChatInput = function (_React$Component) {
         value: function handleKeyPress(e) {
             if (e.charCode == 13 && !e.nativeEvent.shiftKey) {
                 if (this.state.text != "") {
-                    this.props.socket.emit('send-message', { socketId: this.props.state.socketId, userId: this.state.userId, text: this.state.text });
+                    this.props.socket.emit('send-message', { socketId: this.props.state.socketId, userId: this.state.userId, text: this.state.text, ownId: JSON.parse(localStorage['user']).id });
                     this.setState({ text: '' });
                     e.preventDefault();
                 }
@@ -51923,6 +51923,7 @@ var ListFriend = function (_React$Component) {
                                     _this3.props.updateState("socketId", data.id);
                                     _this3.props.updateState("peerId", data.user.id);
                                     _this3.props.updateState("flag", "");
+                                    _this3.props.socket.emit("send-id", { ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id });
                                 },
                                 className: 'friend-member',
                                 primaryText: data.user.name,

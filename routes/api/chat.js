@@ -11,6 +11,10 @@ module.exports = (socket) => {
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
 	});
+	//load tin nhắn
+	socket.on("send-id", data => {
+		
+	})
 	socket.on("send-message", data => {
 		socket.broadcast.to(data.socketId).emit("recieve-message", {userId: data.userId, text: data.text});
 		socket.emit("recieve-message", {userId: data.userId,text: data.text});

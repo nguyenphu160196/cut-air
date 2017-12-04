@@ -21,7 +21,7 @@ export default class ChatInput extends React.Component{
     handleKeyPress(e){       
 		if (e.charCode == 13 && !e.nativeEvent.shiftKey) {
 			if(this.state.text !=""){
-                this.props.socket.emit('send-message', {socketId: this.props.state.socketId, userId: this.state.userId,text: this.state.text})
+                this.props.socket.emit('send-message', {socketId: this.props.state.socketId, userId: this.state.userId,text: this.state.text, ownId: JSON.parse(localStorage['user']).id});
                 this.setState({text: ''});
                 e.preventDefault();
             }
