@@ -16,7 +16,7 @@ export default class ChatContent extends React.Component{
     }    
     render(){
         const MessageContent = this.props.state.messageData ? this.props.state.messageData.message.map((data, i) => {
-            if(this.props.match.params.childId == data.userId){
+            if(this.props.match.params.childId != data.userId){
                 return(
                     <div className="MessageContent" key={i} style={{display: 'flex', fontFamily: 'Helvetica'}}>
                         <div style={{marginRight: '10px'}}><Avatar>{this.props.state.ChatName ? (this.props.state.ChatName).charAt(0) : 'U'}</Avatar></div>
