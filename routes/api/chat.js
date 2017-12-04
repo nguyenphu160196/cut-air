@@ -30,7 +30,7 @@ module.exports = (socket) => {
 			.then(user => {
 				console.log("USER:" ,user);
 				socket.broadcast.to(data.socketId).emit("recieve-message", {
-					userId: user.to, 
+					userId: user.from, 
 					text: user.text
 				});
 				socket.emit("recieve-message", {
