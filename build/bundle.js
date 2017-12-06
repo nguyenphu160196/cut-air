@@ -13475,10 +13475,6 @@ var _videocam2 = _interopRequireDefault(_videocam);
 
 var _reactRouterDom = __webpack_require__(29);
 
-var _peerjs = __webpack_require__(429);
-
-var _peerjs2 = _interopRequireDefault(_peerjs);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13487,7 +13483,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var peer = new _peerjs2.default(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id", { key: '74pu89sk3ce4s4i' });
+// const peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id");
 
 var VideoCallField = function (_React$Component) {
   _inherits(VideoCallField, _React$Component);
@@ -13497,9 +13493,9 @@ var VideoCallField = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (VideoCallField.__proto__ || Object.getPrototypeOf(VideoCallField)).call(this, props));
 
+    _this.peerConnect = _this.peerConnect.bind(_this);
     _this.openStream = _this.openStream.bind(_this);
     _this.playStream = _this.playStream.bind(_this);
-    _this.peerConnect = _this.peerConnect.bind(_this);
     return _this;
   }
 
@@ -13511,13 +13507,13 @@ var VideoCallField = function (_React$Component) {
       this.props.socket.on("access", function (data) {
         _this2.openStream().then(function (stream) {
           _this2.playStream('localStream', stream);
-          var call = peer.call(_this2.props.state.peerId, stream);
+          var call = _this2.props.peer.call(_this2.props.state.peer, stream);
           call.on('stream', function (remoteStream) {
             return _this2.playStream('remoteStream', remoteStream);
           });
         });
       });
-      peer.on('call', function (call) {
+      this.props.peer.on('call', function (call) {
         _this2.openStream().then(function (stream) {
           call.answer(stream);
           _this2.playStream('localStream', stream);
@@ -48014,6 +48010,10 @@ var _Stream = __webpack_require__(465);
 
 var _Stream2 = _interopRequireDefault(_Stream);
 
+var _peerjs = __webpack_require__(429);
+
+var _peerjs2 = _interopRequireDefault(_peerjs);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48023,6 +48023,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var socket = (0, _socket2.default)('http://localhost:9090');
+
+var peer = new _peerjs2.default({ key: '74pu89sk3ce4s4i', debug: 3 });
 
 var RealTime = exports.RealTime = function (_React$Component) {
 	_inherits(RealTime, _React$Component);
@@ -48041,7 +48043,9 @@ var RealTime = exports.RealTime = function (_React$Component) {
 		value: function componentDidMount() {
 			var _this2 = this;
 
-			socket.emit("send-client", JSON.parse(localStorage['user']));
+			peer.on('open', function (id) {
+				socket.emit("send-client", { user: JSON.parse(localStorage['user']), peer: id });
+			});
 			socket.on("previous-message", function (data) {
 				_this2.props.updateState("messageData", data);
 			});
@@ -48100,7 +48104,8 @@ var RealTime = exports.RealTime = function (_React$Component) {
 										state: _this3.props.home,
 										socket: socket,
 										call: _this3.props.call,
-										updateState: _home.updateState
+										updateState: _home.updateState,
+										peer: peer
 									}));
 								} })
 						),
@@ -48180,6 +48185,7 @@ var RealTime = exports.RealTime = function (_React$Component) {
 															_this3.props.updateState("ChatName", data.user.name);
 															_this3.props.updateState("socketId", data.id);
 															_this3.props.updateState("peerId", data.user.id);
+															_this3.props.updateState("peer", data.peer);
 															socket.emit("send-id", { ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id });
 														}
 													});
@@ -51922,6 +51928,7 @@ var ListFriend = function (_React$Component) {
                                     _this3.props.updateState("ChatName", data.user.name);
                                     _this3.props.updateState("socketId", data.id);
                                     _this3.props.updateState("peerId", data.user.id);
+                                    _this3.props.updateState("peer", data.peer);
                                     _this3.props.updateState("flag", "");
                                     _this3.props.socket.emit("send-id", { ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id });
                                 },

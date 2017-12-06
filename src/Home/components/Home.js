@@ -21,20 +21,25 @@ import CallDialog from '../../common/CallDialog.js'
 import AnswerDialog from '../../common/AnswerDialog.js'
 import Stream from './Stream.js';
 
+import Peer from 'peerjs'; 
+const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
+
 export class RealTime extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {list: []}
 	  }
 	componentDidMount() {
-		socket.emit("send-client", JSON.parse(localStorage['user']));
+		peer.on('open', id => {
+			socket.emit("send-client", {user: JSON.parse(localStorage['user']),peer: id});
+		});
 		socket.on("previous-message", data => {
             this.props.updateState("messageData", data)
         })
 		socket.on("answer", data => {
 			this.props.updateState("dialogx", data.dialog);
 			this.props.updateState("messagex", data.caller + " is calling you");
-			this.props.updateState("callroute", data.callerId);			
+			this.props.updateState("callroute", data.callerId);		
 		})
 		socket.on("access", data => {
 			this.props.updateState("dialog", data);
@@ -71,6 +76,7 @@ export class RealTime extends React.Component{
 								socket={socket} 
 								call={this.props.call}
 								updateState={updateState}
+								peer={peer}
 							/>
 						)}/>					
 					</div>
@@ -122,6 +128,7 @@ export class RealTime extends React.Component{
 													this.props.updateState("ChatName", data.user.name);
 													this.props.updateState("socketId", data.id);
 													this.props.updateState("peerId", data.user.id);
+													this.props.updateState("peer", data.peer);
 													socket.emit("send-id", {ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id});
 												}
 											})

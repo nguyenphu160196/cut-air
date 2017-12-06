@@ -5,10 +5,11 @@ const io = require('socket.io')(server);
 const Message = require('../../models/message');
 
 const client = [];
+const peer = [];
 
 module.exports = (socket) => {	
 	socket.on("send-client", data => {
-		client.push({id: socket.id, user: data});
+		client.push({id: socket.id, user: data.user, peer: data.peer});
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
 	});
@@ -47,7 +48,7 @@ module.exports = (socket) => {
 					.populate("from")
 					.populate("to")
 					.then(message => {
-						console.log("USER:" ,message);
+						// console.log("USER:" ,message);
 						socket.broadcast.to(data.socketId).emit("recieve-message", message);
 						socket.emit("recieve-message", message);
 					})
@@ -81,5 +82,10 @@ module.exports = (socket) => {
 		})
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
+		peer.map((data, i) => {
+			if(data.id == socket.id){
+				peer.splice(i,1);
+			}
+		})
 	});
 }

@@ -9,27 +9,25 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import Peer from 'peerjs'; 
-
-var peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id", {key: '74pu89sk3ce4s4i'}); 
+// const peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id");
 
 export default class VideoCallField extends React.Component {
     
       constructor(props) {
         super(props);
+        this.peerConnect = this.peerConnect.bind(this);
         this.openStream = this.openStream.bind(this);
         this.playStream = this.playStream.bind(this);
-        this.peerConnect = this.peerConnect.bind(this);
       }
       componentDidMount(){
         this.props.socket.on("access", data => {
-          this.openStream().then(stream => {
+          this.openStream().then(stream => {   
             this.playStream('localStream', stream);
-            const call = peer.call(this.props.state.peerId, stream);
+            const call = this.props.peer.call(this.props.state.peer, stream);
             call.on('stream', remoteStream => this.playStream('remoteStream',remoteStream));
-          });
-        })
-        peer.on('call', call=>{
+          }) 
+        });
+        this.props.peer.on('call', call=>{
           this.openStream().then(stream=>{
             call.answer(stream);
             this.playStream('localStream', stream);
@@ -47,11 +45,11 @@ export default class VideoCallField extends React.Component {
         const video = document.getElementById(idVideoTag); 
         video.srcObject = stream;
         video.play();
-      };
+      }
 
-      peerConnect(){     
+      peerConnect(){   
         this.props.socket.emit("calling", {id: this.props.state.socketId, user: this.props.state.ChatName , dialog: true, caller: JSON.parse(localStorage['user']).name, callerId: JSON.parse(localStorage['user']).id});
-        this.props.call(this.props.state.ChatName);
+        this.props.call(this.props.state.ChatName);    
       }
 
       render() {
