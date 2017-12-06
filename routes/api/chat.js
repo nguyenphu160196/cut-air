@@ -5,7 +5,6 @@ const io = require('socket.io')(server);
 const Message = require('../../models/message');
 
 const client = [];
-const peer = [];
 
 module.exports = (socket) => {	
 	socket.on("send-client", data => {
@@ -69,7 +68,11 @@ module.exports = (socket) => {
 			});
 	})
 	socket.on("calling", data => {
-		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog, caller: data.caller, callerId: data.callerId});
+		client.map((array, i) => {
+			if(data.callerId == array.user){
+				socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog, caller: data.caller, callerId: data.callerId, callerSocket: data.callerSocket, peer: array.peer});
+			}
+		})
 	})
 	socket.on("answered", data => {
 		socket.broadcast.to(data.id).emit("access", data.dialog);
@@ -82,10 +85,5 @@ module.exports = (socket) => {
 		})
 		socket.emit("friend-list", client);
 		socket.broadcast.emit("friend-list", client);
-		peer.map((data, i) => {
-			if(data.id == socket.id){
-				peer.splice(i,1);
-			}
-		})
 	});
 }

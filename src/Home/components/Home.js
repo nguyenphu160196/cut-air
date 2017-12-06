@@ -27,11 +27,14 @@ const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
 export class RealTime extends React.Component{
 	constructor(props) {
 		super(props);
+		this.openStream = this.openStream.bind(this);
+        this.playStream = this.playStream.bind(this);
 		this.state = {list: []}
 	  }
 	componentDidMount() {
 		peer.on('open', id => {
 			socket.emit("send-client", {user: JSON.parse(localStorage['user']),peer: id});
+			console.log(id);
 		});
 		socket.on("previous-message", data => {
             this.props.updateState("messageData", data)
@@ -39,12 +42,30 @@ export class RealTime extends React.Component{
 		socket.on("answer", data => {
 			this.props.updateState("dialogx", data.dialog);
 			this.props.updateState("messagex", data.caller + " is calling you");
-			this.props.updateState("callroute", data.callerId);		
+			this.props.updateState("callroute", data.callerId);	
+			this.props.updateState("callerSocket", data.callerSocket);
 		})
 		socket.on("access", data => {
 			this.props.updateState("dialog", data);
 		})
+		peer.on('call', call=>{
+			this.openStream().then(stream=>{
+			  call.answer(stream);
+			  this.playStream('localStream', stream);
+			  call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
+			});
+		  });
 	}  
+	openStream(){
+        const config = {audio: false, video: true};
+        return navigator.mediaDevices.getUserMedia(config);
+      };
+
+      playStream(idVideoTag, stream){
+        const video = document.getElementById(idVideoTag); 
+        video.srcObject = stream;
+        video.play();
+      }
 	render(){
 		return(
 			<div>	
@@ -176,7 +197,8 @@ export const Home = ({home, closeDialog, signOut, accSetting, updateState, match
 					dialog={home.dialogx ? home.dialogx : false} 
 					closeDialog={closeDialog} 
 					message={home.messagex ? home.messagex : ""}
-					peerId={home.callroute ? home.callroute : ""}
+					peerRoute={home.callroute ? home.callroute : ""}
+					callerSocket={home.callerSocket ? home.callerSocket : ""}
 					socket={socket}
 					state={home}
 				/>
