@@ -6,6 +6,9 @@ import {
     Route,
     Link
   } from 'react-router-dom'
+import Call from 'material-ui/svg-icons/communication/call';
+import CallEnd from 'material-ui/svg-icons/communication/call-end';
+  
 
 class AnswerDialog extends React.Component{
     constructor(props) {
@@ -13,16 +16,13 @@ class AnswerDialog extends React.Component{
 		this.state = {}
 	  }
 	componentDidMount() {
-        this.props.socket.on("answer", data => {
-            console.log(data.peer);
-        })
     }
     render(){
         const actions = [
             <li className='li-friendlist'>
                 <Link to={'/home/call/' + this.props.peerRoute}>
                     <FlatButton
-                        label="OK"
+                        icon={<Call color="lightgreen" />}
                         primary={true}
                         onClick={() => {
                             this.props.closeDialog();
@@ -30,11 +30,20 @@ class AnswerDialog extends React.Component{
                         }}
                     /> 
                 </Link>
-            </li>   
+            </li>
+                    ,<FlatButton
+                        icon={<CallEnd color="red" />}
+                        primary={true}
+                        onClick={() => {
+                            this.props.closeDialog();
+                            this.props.socket.emit("deny", {id: this.props.state.socketId ? this.props.state.socketId : this.props.callerSocket, dialog: false});
+                        }}
+                    />    
 		];
         return (
             <div>
                 <Dialog
+                    className="callDialog"
 					actions={actions}
 					modal={false}
 					open={this.props.dialog}

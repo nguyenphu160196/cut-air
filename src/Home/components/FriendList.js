@@ -42,6 +42,7 @@ class ListFriend extends React.Component {
                             this.props.updateState("peer", data.peer);
                             this.props.updateState("flag", "");        
                             this.props.socket.emit("send-id", {ownId: JSON.parse(localStorage['user']).id, friendId: data.user.id});
+                            
                         }}
                         className='friend-member'
                         primaryText={data.user.name}

@@ -19,7 +19,9 @@ import Preferences from './Preferences.js'
 import NotFound from '../../common/NotFound.js'
 import CallDialog from '../../common/CallDialog.js'
 import AnswerDialog from '../../common/AnswerDialog.js'
+import DefaultDialog from '../../common/DefaultDialog.js'
 import Stream from './Stream.js';
+import EndCall from './EndCall.js'
 
 import Peer from 'peerjs'; 
 const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
@@ -28,13 +30,12 @@ export class RealTime extends React.Component{
 	constructor(props) {
 		super(props);
 		this.openStream = this.openStream.bind(this);
-        this.playStream = this.playStream.bind(this);
-		this.state = {list: []}
-	  }
+		this.playStream = this.playStream.bind(this);
+		this.state = {list: [], existingCall: ""}
+	}
 	componentDidMount() {
 		peer.on('open', id => {
 			socket.emit("send-client", {user: JSON.parse(localStorage['user']),peer: id});
-			console.log(id);
 		});
 		socket.on("previous-message", data => {
             this.props.updateState("messageData", data)
@@ -48,12 +49,21 @@ export class RealTime extends React.Component{
 		socket.on("access", data => {
 			this.props.updateState("dialog", data);
 		})
+		socket.on("not-access", data => {
+			this.props.updateState("dialog", data);
+			this.props.updateState("dialogm", true);
+			this.props.updateState("messagem", "Calling have been failed!");
+		})
 		peer.on('call', call=>{
 			this.openStream().then(stream=>{
 				call.answer(stream);
 				this.playStream('localStream', stream);
 				call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
 			});
+			if(this.state.existingCall != "") {
+				this.state.existingCall.close();
+			  }
+			  this.setState({existingCall: call});
 		});
 	}  
 	openStream(){
@@ -109,12 +119,12 @@ export class RealTime extends React.Component{
 						}}>
 							<Switch>
 								<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => (
-									<ChatContent 
-										{...props} 
-										state={this.props.home} 
-										socket={socket} 
-										updateState={this.props.updateState}
-									/>
+										<ChatContent 
+											{...props} 
+											state={this.props.home} 
+											socket={socket} 
+											updateState={this.props.updateState}
+										/>
 								)}/>
 								<Route exact path={this.props.match.url} render={() => (
 									<div className='WellcomeBack'>
@@ -141,6 +151,15 @@ export class RealTime extends React.Component{
 							</div>
 							<div className='chat-input'>
 								<Switch>
+									<Route path={`${this.props.match.url}/call/:childId`} render={(props) => (
+										<EndCall 
+											{...props} 
+											state={this.props.home} 
+											socket={socket} 
+											updateState={this.props.updateState}
+											existingCall={this.state.existingCall}
+										/>
+									)}/>
 									<Route path={`${this.props.match.url}/chat/:childId`} render={(props) => {
 										socket.on("friend-list", array => {
 											array.map(data => {
@@ -191,6 +210,7 @@ export const Home = ({home, closeDialog, signOut, accSetting, updateState, match
 					updateState={updateState}
 					call={call}
 				/>
+				<DefaultDialog dialog={home.dialogm} message={home.messagem} closeDialog={closeDialog} state={home} />
 				<CallDialog dialog={home.dialog} message={home.message} />
 				<AnswerDialog 
 					dialog={home.dialogx ? home.dialogx : false} 

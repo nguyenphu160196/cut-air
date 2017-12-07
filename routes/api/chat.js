@@ -73,6 +73,9 @@ module.exports = (socket) => {
 	socket.on("answered", data => {
 		socket.broadcast.to(data.id).emit("access", data.dialog);
 	})
+	socket.on("deny", data => {
+		socket.broadcast.to(data.id).emit("not-access", data.dialog);
+	})
 	socket.on("disconnect", ()=>{
 		client.map((data, i) => {
 			if(data.id == socket.id){

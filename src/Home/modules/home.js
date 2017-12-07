@@ -47,7 +47,8 @@ const initialState = {
     dialog: false,
     acc_set: false,
     message: "",
-    dialogx: false
+    dialogx: false,
+    dialogm: false
  }
 
  export const HomeReducer = (state = initialState, action)=>{
@@ -57,7 +58,8 @@ const initialState = {
         ...state,
         dialog: action.payload,
         acc_set: action.payload,
-        dialogx: action.payload
+        dialogx: action.payload,
+        dialogm: action.payload
         }
     case SIGN_OUT:
         return {

@@ -179,4 +179,18 @@ li.li-friendlist a:first-child{
     margin-bottom: 10px;
 }
 
+/*stream*/
+#localStream{
+	margin: 0px 20px;
+}
+
+.EndCall{
+	display: flex;
+	justify-content: center;
+}
+
 /*Preferences*/
+.callDialog > div > div > div div:last-child{
+	display: flex!important;
+	justify-content: center;
+}
