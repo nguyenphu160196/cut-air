@@ -50,22 +50,21 @@ export class RealTime extends React.Component{
 		})
 		peer.on('call', call=>{
 			this.openStream().then(stream=>{
-			  call.answer(stream);
-			  this.playStream('localStream', stream);
-			  call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
+				call.answer(stream);
+				this.playStream('localStream', stream);
+				call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
 			});
-		  });
+		});
 	}  
 	openStream(){
         const config = {audio: false, video: true};
         return navigator.mediaDevices.getUserMedia(config);
-      };
-
-      playStream(idVideoTag, stream){
-        const video = document.getElementById(idVideoTag); 
-        video.srcObject = stream;
-        video.play();
-      }
+	};
+	playStream(idVideoTag, stream){
+		const video = document.getElementById(idVideoTag); 
+		video.srcObject = stream;
+		video.play();
+	}
 	render(){
 		return(
 			<div>	

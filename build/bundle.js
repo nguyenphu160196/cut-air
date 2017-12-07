@@ -13483,8 +13483,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// const peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id");
-
 var VideoCallField = function (_React$Component) {
   _inherits(VideoCallField, _React$Component);
 
@@ -13513,15 +13511,13 @@ var VideoCallField = function (_React$Component) {
           });
         });
       });
-      this.props.peer.on('call', function (call) {
-        _this2.openStream().then(function (stream) {
-          call.answer(stream);
-          _this2.playStream('localStream', stream);
-          call.on('stream', function (remoteStream) {
-            return _this2.playStream('remoteStream', remoteStream);
-          });
-        });
-      });
+      // this.props.peer.on('call', call=>{
+      //   this.openStream().then(stream=>{
+      //     call.answer(stream);
+      //     this.playStream('localStream', stream);
+      //     call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
+      //   });
+      // });
     }
   }, {
     key: 'openStream',

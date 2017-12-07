@@ -9,7 +9,6 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-// const peer = new Peer(localStorage['user'] ? JSON.parse(localStorage['user']).id : "id");
 
 export default class VideoCallField extends React.Component {
     
@@ -27,13 +26,13 @@ export default class VideoCallField extends React.Component {
             call.on('stream', remoteStream => this.playStream('remoteStream',remoteStream));
           }) 
         });
-        this.props.peer.on('call', call=>{
-          this.openStream().then(stream=>{
-            call.answer(stream);
-            this.playStream('localStream', stream);
-            call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
-          });
-        });
+        // this.props.peer.on('call', call=>{
+        //   this.openStream().then(stream=>{
+        //     call.answer(stream);
+        //     this.playStream('localStream', stream);
+        //     call.on('stream', remoteStream => this.playStream('remoteStream', remoteStream));
+        //   });
+        // });
       }
 
       openStream(){

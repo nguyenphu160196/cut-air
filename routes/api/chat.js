@@ -68,11 +68,7 @@ module.exports = (socket) => {
 			});
 	})
 	socket.on("calling", data => {
-		client.map((array, i) => {
-			if(data.callerId == array.user){
-				socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog, caller: data.caller, callerId: data.callerId, callerSocket: data.callerSocket, peer: array.peer});
-			}
-		})
+		socket.broadcast.to(data.id).emit("answer", {dialog: data.dialog, caller: data.caller, callerId: data.callerId, callerSocket: data.callerSocket});
 	})
 	socket.on("answered", data => {
 		socket.broadcast.to(data.id).emit("access", data.dialog);
