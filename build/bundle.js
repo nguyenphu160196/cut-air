@@ -13527,7 +13527,7 @@ var VideoCallField = function (_React$Component) {
   }, {
     key: 'openStream',
     value: function openStream() {
-      var config = { audio: false, video: true };
+      var config = { audio: true, video: true };
       return navigator.mediaDevices.getUserMedia(config);
     }
   }, {
