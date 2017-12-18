@@ -10739,7 +10739,12 @@ var handleSignup = exports.handleSignup = function handleSignup(body, login) {
                         type: SIGNUP_CANCEL
                     });
                     location.href = '/home';
-                }).catch(function (error) {});
+                }).catch(function (error) {
+                    dispatch({
+                        type: SIGNUP_FAIL,
+                        payload: 'An Error Occured!'
+                    });
+                });
             }).catch(function (error) {
                 dispatch({
                     type: SIGNUP_FAIL,
@@ -10803,7 +10808,12 @@ var handleLogin = exports.handleLogin = function handleLogin(body) {
             } else {
                 dispatch({ type: LOGIN_FAIL });
             }
-        }).catch(function (error) {});
+        }).catch(function (error) {
+            dispatch({
+                type: SIGNUP_FAIL,
+                payload: 'An Error Occured!'
+            });
+        });
     };
 };
 

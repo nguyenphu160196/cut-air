@@ -33,6 +33,10 @@ export const handleSignup = (body,login) => {
                     location.href = '/home';
                 })
                 .catch(function (error){
+                    dispatch({
+                        type: SIGNUP_FAIL,
+                        payload: 'An Error Occured!'
+                    })
                 })
             })
             .catch(function (error){
@@ -101,6 +105,10 @@ export const handleLogin = (body) => {
         }
     })
     .catch(function (error){
+        dispatch({
+            type: SIGNUP_FAIL,
+            payload: 'An Error Occured!'
+        })
     })
    }
 }
