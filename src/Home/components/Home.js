@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import {closeDialog, signOut, accSetting, updateState, call} from '../modules/home.js'
 import io from 'socket.io-client'
-const socket = io('http://localhost:9090');
-// const socket = io('https://cut-air.herokuapp.com/');
+// const socket = io('http://localhost:9090');
+const socket = io('https://cut-air.herokuapp.com/');
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom'
