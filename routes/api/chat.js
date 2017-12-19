@@ -49,6 +49,7 @@ module.exports = (socket) => {
 					.then(message => {
 						// console.log("USER:" ,message);
 						socket.broadcast.to(data.socketId).emit("recieve-message", message);
+						socket.broadcast.to(data.socketId).emit("set-flag", "");
 						socket.emit("recieve-message", message);
 					})
 					.catch(err => {
