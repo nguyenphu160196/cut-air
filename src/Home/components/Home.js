@@ -23,12 +23,11 @@ import AnswerDialog from '../../common/AnswerDialog.js'
 import DefaultDialog from '../../common/DefaultDialog.js'
 import Stream from './Stream.js';
 import EndCall from './EndCall.js'
-
+const port = process.env.PORT || 9090;
 var rand = require("random-key");
 import Peer from 'peerjs'; 
 // const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
-// var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com',secure:true});
-var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', path: '/peerjs'});
+var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', port: port, path: '/peerjs'});
 
 export class RealTime extends React.Component{
 	constructor(props) {

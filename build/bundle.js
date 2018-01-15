@@ -60331,7 +60331,7 @@ exports.default = FlatButtonLabel;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -60427,12 +60427,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // const socket = io('https://localhost:9090');
 var socket = (0, _socket2.default)('https://cut-air.herokuapp.com/');
 
-
+var port = process.env.PORT || 9090;
 var rand = __webpack_require__(533);
 
 // const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
-// var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com',secure:true});
-var peer = new _peerjs2.default(rand.generate(), { host: 'cut-air.herokuapp.com', path: '/peerjs' });
+var peer = new _peerjs2.default(rand.generate(), { host: 'cut-air.herokuapp.com', port: port, path: '/peerjs' });
 
 var RealTime = exports.RealTime = function (_React$Component) {
 	_inherits(RealTime, _React$Component);
@@ -60717,6 +60716,7 @@ Home.PropTypes = {
 	updateState: _propTypes2.default.func.isRequired,
 	call: _propTypes2.default.func.isRequired
 };
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 442 */
