@@ -60430,8 +60430,8 @@ var socket = (0, _socket2.default)('https://cut-air.herokuapp.com/');
 var port = process.env.PORT || 9090;
 var rand = __webpack_require__(533);
 
-// const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
-var peer = new _peerjs2.default(rand.generate(), { host: 'cut-air.herokuapp.com', port: port, path: '/peerjs' });
+var peer = new _peerjs2.default({ key: '74pu89sk3ce4s4i', debug: 3 });
+// var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', port: port, path: '/peerjs'});
 
 var RealTime = exports.RealTime = function (_React$Component) {
 	_inherits(RealTime, _React$Component);

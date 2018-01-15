@@ -26,8 +26,8 @@ import EndCall from './EndCall.js'
 const port = process.env.PORT || 9090;
 var rand = require("random-key");
 import Peer from 'peerjs'; 
-// const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
-var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', port: port, path: '/peerjs'});
+const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
+// var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', port: port, path: '/peerjs'});
 
 export class RealTime extends React.Component{
 	constructor(props) {
