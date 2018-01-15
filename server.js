@@ -1,4 +1,6 @@
 const express = require("express");
+var fs = require('fs');
+const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -10,8 +12,24 @@ require('./config/passport')(passport);
 
 const port = process.env.PORT || 9090;
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+
+
+var options = {
+  key: fs.readFileSync('./config/file.pem'),
+  cert: fs.readFileSync('./config/file.crt')
+};
+var server = https.createServer(options, app);
+
+var io = require('socket.io')(server);
+
+var ExpressPeerServer = require('peer').ExpressPeerServer; 
+var peerjs_options = {
+  debug: true
+}
+
+var peerServer = ExpressPeerServer(server, peerjs_options)
+app.use('/peerjs', peerServer);
+
 const config = require('./config/database');
 const index = require('./routes/index');
 const users = require('./routes/api/users');
@@ -53,4 +71,4 @@ app.use('/', index);
 app.use('/api/', users);
 io.on('connection', chatAPI);
 
-server.listen(port, () => console.log('Server is running on port', port));
+server.listen(port, () => console.log('Server is running on port ' + port));

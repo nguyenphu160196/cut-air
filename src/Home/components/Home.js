@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import {closeDialog, signOut, accSetting, updateState, call} from '../modules/home.js'
 import io from 'socket.io-client'
-// const socket = io('http://localhost:9090');
-const socket = io('https://cut-air.herokuapp.com/');
+const socket = io('https://localhost:9090');
+// const socket = io('https://cut-air.herokuapp.com/');
 import {
     BrowserRouter as Router, Route, Switch
 } from 'react-router-dom'
@@ -24,8 +24,11 @@ import DefaultDialog from '../../common/DefaultDialog.js'
 import Stream from './Stream.js';
 import EndCall from './EndCall.js'
 
+var rand = require("random-key");
 import Peer from 'peerjs'; 
-const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
+// const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
+// var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com',secure:true});
+var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', path: '/peerjs'});
 
 export class RealTime extends React.Component{
 	constructor(props) {
