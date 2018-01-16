@@ -60424,15 +60424,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var socket = (0, _socket2.default)('https://localhost:9090');
-// const socket = io('https://cut-air.herokuapp.com/');
+// const socket = io('https://localhost:9090');
+var socket = (0, _socket2.default)('http://cut-air.herokuapp.com/');
 
 var port = process.env.PORT || 9090;
 var rand = __webpack_require__(533);
 
-// const peer = new Peer({key: '74pu89sk3ce4s4i', debug: 3});
+var peer = new _peerjs2.default({ key: '74pu89sk3ce4s4i', debug: 3 });
 // var peer = new Peer(rand.generate(),{host: 'cut-air.herokuapp.com', port: port, path: '/peerjs'});
-var peer = new _peerjs2.default(rand.generate(), { host: 'localhost', port: port, path: '/peerjs' });
+// var peer = new Peer(rand.generate(),{host: 'localhost', port: port, path: '/peerjs'});
 
 var RealTime = exports.RealTime = function (_React$Component) {
 	_inherits(RealTime, _React$Component);
