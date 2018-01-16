@@ -1,6 +1,4 @@
 const express = require("express");
-var fs = require('fs');
-const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -8,27 +6,30 @@ const expressValidator = require('express-validator');
 const passport = require('passport');
 const history = require('connect-history-api-fallback')
 
+// var fs = require('fs');
+// const https = require('https');
 require('./config/passport')(passport);
 
 const port = process.env.PORT || 9090;
 const app = express();
+const server = require('http').Server(app);
 
 
-var options = {
-  key: fs.readFileSync('./config/file.pem'),
-  cert: fs.readFileSync('./config/file.crt')
-};
-var server = https.createServer(options, app);
+// var options = {
+//   key: fs.readFileSync('./config/key.pem', 'utf8'),
+//   cert: fs.readFileSync('./config/csr.pem', 'utf8')
+// };
+// var server = https.createServer(options, app);
 
 var io = require('socket.io')(server);
 
-var ExpressPeerServer = require('peer').ExpressPeerServer; 
-var peerjs_options = {
-  debug: true
-}
+// var ExpressPeerServer = require('peer').ExpressPeerServer; 
+// var peerjs_options = {
+//   debug: true
+// }
 
-var peerServer = ExpressPeerServer(server, peerjs_options)
-app.use('/peerjs', peerServer);
+// var peerServer = ExpressPeerServer(server, peerjs_options)
+// app.use('/peerjs', peerServer);
 
 const config = require('./config/database');
 const index = require('./routes/index');
