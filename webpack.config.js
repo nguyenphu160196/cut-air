@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack')
 const path = require('path');
 module.exports = {
   entry: './src/index.js', 
@@ -41,5 +42,9 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("styles.css"),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ]
 };
