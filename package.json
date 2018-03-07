@@ -11,15 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/nguyenphu160196/TLCN.git"
+    "url": "https://github.com/nguyenphu160196/cut-air.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/nguyenphu160196/TLCN/issues"
-  },
-  "homepage": "https://gitlab.com/nguyenphu160196/TLCN#README",
+  "license": "ISC"
+  ,
   "dependencies": {
     "axios": "^0.17.0",
     "bcrypt": "^1.0.3",
